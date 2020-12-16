@@ -7,40 +7,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
 </head>
 <body>
-<div class="m-container m-padded-tb-massive" style="max-width: 35em !important; padding-top: 15em!important; ">
-    <div class="ui container">
-        <div class="ui middle aligned center aligned grid">
-            <div class="column">
-                <h2 class="ui teal image header">
-                    <div class="content">
-                        注册
-                    </div>
-                </h2>
-                <form class="ui large form" method="post" action="#" th:action="@{/admin/login}">
-                    <div class="ui stacked segment">
-                        <div class="field">
-                            <div class="ui left icon input">
-                                <i class="user icon"></i>
-                                <input type="text" name="username" placeholder="用户名">
-                            </div>
-                        </div>
-                        <div class="field">
-                            <div class="ui left icon input">
-                                <i class="lock icon"></i>
-                                <input type="password" name="password" placeholder="密码">
-                            </div>
-                        </div>
-                        <button class="ui fluid large teal submit button">登   录</button>
-                    </div>
+<form action="/login" method="post">
+    用户名：<input type="text" name="username" /><br/>
+    密码：<input type="password" name="password" /><br/>
+    <input type="submit" value="登录" />
+</form>
 
-                    <div class="ui error message"></div>
-                    <div class="ui negative message " th:unless="${#strings.isEmpty(message)}" th:text="${message}">用户名和密码错误</div>
-                </form>
-
-            </div>
-        </div>
-    </div>
-</div>
 
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>

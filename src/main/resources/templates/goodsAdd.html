@@ -20,7 +20,7 @@
             <div class="nine wide column">
                 <div class="m-fontsize-16">
                     名称:
-                    <div class="ui input focus m-div1 ">
+                    <div class="ui input  m-div1 ">
                         <input class="m-input1 " type="text" placeholder="请输入..">
                     </div>
                 </div>
@@ -44,10 +44,9 @@
                         </div>
                     </div>
                     <div class="eight wide column">
-                        秒杀:
-                        <div class="ui input ">
-                            <input type="text" placeholder="请输入..">
-                        </div>
+                        是否开启秒杀
+                        <button id="btn-seckill" onclick="switchSeckillState()" class="ui toggle button active" value="1">开启</button>
+
                     </div>
                 </div>
                 <div class="ui grid">
@@ -67,11 +66,25 @@
             </div>
         </div>
 
-
+    </div>
 </div>
 
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+<script>
+    function switchSeckillState() {
+        var state = $('#btn-seckill').val();
+        if (1 == state) {
+            $('#btn-seckill').val('0');
+            $('#btn-seckill').text('关闭');
+            $('#btn-seckill').removeClass("active");
+        }else {
+            $('#btn-seckill').val('1');
+            $('#btn-seckill').text('开启');
+            $('#btn-seckill').addClass("active");
+        }
 
+    }
+</script>
 </body>
 </html>

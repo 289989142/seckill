@@ -1,4 +1,12 @@
 
+
+spring:
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/templates/
+
+server:
+  port: 8080
+
 config:
   jwt:
     secret: lihengyu.top #这里可以自己定制
