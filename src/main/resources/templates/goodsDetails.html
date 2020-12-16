@@ -9,14 +9,15 @@
 <body>
 <div class="m-container m-padded-tb-big">
 <!--下一步 两个div 同一行-->
+<!--下一步 jquery绑定事件操作按钮属性-->
     <div class="ui divider"></div>
     <div class="ui  segment">
         <div class="ui grid">
             <div class="seven wide column">
-                <span><!--添加图片-->
-                    <img src="picture/goods.png">
-                </span>
-                <span>
+                <div style="float: left; width: 75%"><!--添加图片-->
+                    <img style="width: 100%" src="picture/goods.png">
+                </div>
+                <div style="float: left; width: 25%">
                     <ul>
                         <li>
                             <a href="">图片1</a>
@@ -25,7 +26,7 @@
                             <a href="">图片2</a>
                         </li>
                     </ul>
-                </span>
+                </div>
             </div>
 
             <div class="nine wide column">
@@ -44,6 +45,8 @@
                     </div>
                     <div class="eight wide column">
                         是否开启秒杀
+                        <button id="btn-seckill" class="ui toggle button active" value="开启">开启</button>
+
                     </div>
                 </div>
                 <div class="ui grid">
@@ -59,9 +62,25 @@
 
 
 </div>
+</div>
 
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+<script type="text/javascript">
+    window.onload=function(){
+        var valueBtnSeckill = document.getElementById("btn-seckill")
+        var oBtn=document.getElementById("btn-seckill")
+        oBtn.onclick=click;
 
+        function click(){
+
+            alert("我被点击了")
+        }
+
+
+        // 按钮绑定函数不需要括号，否则函数会一打开页面就执行
+
+    }
+</script>
 </body>
 </html>
