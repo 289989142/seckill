@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
-<head th:replace="admin/_fragments :: head(~{title})">
+<head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>登录</title>
-    <link rel="stylesheet" href="../static/css/me.css">
+    <title>登录11</title>
+    <link rel="stylesheet" href="/css/me.css" th:href="@{/css/me.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
 </head>
 <body>
