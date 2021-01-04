@@ -1,8 +1,44 @@
 
 
 spring:
+  mvc:
+#    servlet:
+#      path: /sec
+#    view:
+#      prefix: classpath:/templates
+#      suffix: .html
+#    static-path-pattern: /static/**
+
+  thymeleaf:
+    cache: false
+    content-type: text/html
+    enabled: true
+    encoding: UTF-8
+    mode: HTML5
+    suffix: .html
+    prefix: classpath:/templates
   resources:
-    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/templates/
+      static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/templates/
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#    filters: stat
+#    initialSize: 100
+#    maxActive: 1000
+#    maxOpenPreparedStatements: 20
+#    maxWait: 60000
+#    minEvictableIdleTimeMillis: 300000
+#    minIdle: 500
+    password: 289989142
+#    poolPreparedStatements: true
+#    testOnBorrow: false
+#    testOnReturn: false
+#    testWhileIdle: true
+#    timeBetweenEvictionRunsMillis: 60000
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://39.103.152.64:3306/seckill?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+    username: root
+#    validationQuery: select 'x'
+
 
 server:
   port: 8080
@@ -34,3 +70,11 @@ redis:
     min-idle: 0
     # 从连接池中获取连接最大等待时间（默认为-1，单位为毫秒，负数表示无限）
     max-wait: -1
+
+mybatis:
+  configuration:
+    default-fetch-size: 100
+    default-statement-timeout: 3000
+    map-underscore-to-camel-case: true
+  mapperLocations: classpath:com/jesper/seckill/mapper/*.xml
+  type-aliases-package: com.jesper.seckill.mapper

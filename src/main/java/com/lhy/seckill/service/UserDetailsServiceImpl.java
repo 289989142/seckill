@@ -31,7 +31,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         //2.解析密码
         String pwd = pw.encode("123");
 
-        return new User(username,pwd, AuthorityUtils.commaSeparatedStringToAuthorityList("admin,normal"));
+        return new User(username,pwd, AuthorityUtils.commaSeparatedStringToAuthorityList(
+                "admin,normal,ROLE_guest,ROLE_admin ,/insert,/delete"));
 
     }
 }

@@ -1,5 +1,6 @@
 package com.lhy.seckill.controller;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,15 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class Login {
-/*
-    @RequestMapping("login")
-    public String login(){
-        System.out.println("执行登录方法");
-        return "main";
-    }
-*/
 
 
+    @Secured({"ROLE_guest","ROLE_admin"})
     @RequestMapping("toMain")
     public String toMain(){
         System.out.println("执行登陆成功");
@@ -30,6 +25,16 @@ public class Login {
     @RequestMapping("toError")
     public String toError(){
         System.out.println("执行登陆成功");
-        return "error";
+        return "myerror";
+    }
+
+    @RequestMapping("demo")
+    private String toDemo(){
+        return "demo";
+    }
+
+    @RequestMapping("showLogin")
+    private String showLogin(){
+        return "login";
     }
 }
