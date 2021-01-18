@@ -1,4 +1,4 @@
-package com.lhy.seckill.controller;
+package com.lhy.seckill.security.controller;
 
 /**
  * @ClassName SignUp

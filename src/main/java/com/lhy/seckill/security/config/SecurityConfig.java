@@ -1,14 +1,10 @@
-package com.lhy.seckill.config;
+package com.lhy.seckill.security.config;
 
-import com.lhy.seckill.handler.MyAccessDeniedHandler;
-import com.lhy.seckill.handler.MyAuthenticationFailureHandler;
-import com.lhy.seckill.handler.MyAuthenticationSuccessHandler;
-import com.lhy.seckill.service.UserDetailsServiceImpl;
+import com.lhy.seckill.seckill.handler.MyAccessDeniedHandler;
+import com.lhy.seckill.seckill.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

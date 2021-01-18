@@ -1,4 +1,4 @@
-package com.lhy.seckill.service;
+package com.lhy.seckill.security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;

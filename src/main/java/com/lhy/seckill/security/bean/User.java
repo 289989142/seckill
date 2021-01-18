@@ -1,4 +1,4 @@
-package com.lhy.seckill.bean;
+package com.lhy.seckill.security.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

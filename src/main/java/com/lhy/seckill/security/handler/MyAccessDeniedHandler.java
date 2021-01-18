@@ -1,4 +1,4 @@
-package com.lhy.seckill.handler;
+package com.lhy.seckill.security.handler;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
