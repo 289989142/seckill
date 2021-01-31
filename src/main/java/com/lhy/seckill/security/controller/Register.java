@@ -6,11 +6,13 @@ import com.lhy.seckill.security.service.MailService;
 import com.lhy.seckill.security.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -59,33 +61,32 @@ public class Register {
 
 
     @RequestMapping("/register")
-    public String register(HttpServletRequest request,String mailVerify,String email,String password,String verifyCode){
+    public String register(Model model,RedirectAttributes attributes, HttpServletRequest request, String mailVerify, String email, String password, String verifyCode){
         System.out.println(email);
         System.out.println(password);
         System.out.println(mailVerify);
         System.out.println(verifyCode);
 
         if (!imgvrifyControllerDefaultKaptcha(request,verifyCode)){
-            return "/error/error";
+//            attributes.addFlashAttribute("message","图形验证码错误！请重试！");
+            model.addAttribute("message","图形验证码错误！请重试！");
+            return "register";
         }
 
-        System.out.println(1);
-
-        System.out.println((String) request.getSession().getAttribute("mailVerify"));
-        if (!((String) request.getSession().getAttribute("mailVerify")).equals(mailVerify)){
-            return "/error/error";
+        if (!(mailVerify).equals((String) request.getSession().getAttribute("mailVerify"))){
+            model.addAttribute("message","邮箱验证码错误！请重试！");
+            return "register";
         }
         //调用注册业务
-        System.out.println(2);
         int result = registerService.register(email, "测试", password, "测试", "guest");
 
-        System.out.println(3);
         if (Constant.ACCOUNT_HAS_REGISTERED == result){
-            return "/error/error";
+            model.addAttribute("message","账户已经注册过！请登录！");
+            return "register";
         }
 
-        System.out.println(4);
-        return "login";
+        model.addAttribute("message","账户注册成功！请登录！");
+        return "register";
     }
     /**
      * 获取验证码 的 请求路径
