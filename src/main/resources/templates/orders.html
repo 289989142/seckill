@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title>订单</title>
+    <link rel="stylesheet" href="../static/css/me.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
+</head>
+<body>
+<!--导航-->
+<nav class="ui inverted attached segment m-padded-tb-minier" th:replace="_fragments :: nav(4)">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui teal header item">秒杀商城</h2>
+            <a href="#" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>搜索</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>秒杀</a>
+            <a href="#" class="active  m-item item m-mobile-hide"><i class="clone icon"></i>订单</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="info icon"></i>卖家中心</a>
+            <div class="right m-item item m-mobile-hide">
+                <div class="ui icon inverted transparent input">
+                    <input type="text" placeholder="Search...">
+                    <i class="search link icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="m-container m-padded-tb-big">
+    <div class="ui divider"></div>
+    <div class="ui  segment">
+        <div class="ui grid">
+            <div class="m-container m-padded-tb-big">
+                <div class="ui container">
+                    <div  class="ui secondary segment form">
+                        <input type="hidden" name="page" >
+                        <div class="inline fields">
+                            <div class="field">
+                                <input type="text" name="title" placeholder="商品" style="width: 250px">
+                            </div>
+
+                            <div class="field">
+                                <button type="button" id="search-btn" class="ui teal basic button"><i class="search icon"></i>搜索</button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="table-container">
+                        <table th:fragment="blogList" class="ui compact teal table">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>商品</th>
+                                <th>状态</th>
+                                <th>时间</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="blog,iterStat : ${pageInfo.list}">
+                                <td th:text="${iterStat.count}">1</td>
+                                <td th:text="${blog.title}">面包</td>
+                                <td th:text="${blog.getType().name}">待支付</td>
+                                <td th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm')}">2020-8-26</td>
+                                <td>
+                                    <!--    <a href="#" class="ui teal basic button">编辑</a>
+                                        <a href="#" class="ui red basic button">删除</a>   -->
+                                    <a href="#" th:href="@{/admin/blogs/{id}/input(id=${blog.id})}" class="ui mini teal basic button">支付</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <!--<th colspan="6">
+                                    <div class="ui pagination menu">
+                                        <a href="#" class="item">上一页</a>
+                                        <a href="#" class="item">下一页</a>
+                                    </div>
+                                    <a href="#" class="ui  right floated teal basic button">新增</a>
+                                </th>-->
+                                <th colspan="7">
+                                    <div class="ui inverted divided stackable grid">
+                                        <div class="three wide column" align="center">
+                                            <a class="item" th:href="@{/admin/blogs(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}" th:unless="${pageInfo.isFirstPage}">上一页</a>
+                                        </div>
+
+                                        <div class="ten wide column" align="center">
+                                            <p>第 <span th:text="${pageInfo.pageNum}"></span> 页，共 <span th:text="${pageInfo.pages}"></span> 页，有 <span th:text="${pageInfo.total}"></span> 个订单</p>
+                                        </div>
+
+                                        <div class="three wide column" align="center">
+                                            <a class="item" th:href="@{/admin/blogs(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}" th:unless="${pageInfo.isLastPage}">下一页</a>
+                                        </div>
+                                    </div>
+
+                                </th>
+                            </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+<script>
+
+</script>
+</body>
+</html>

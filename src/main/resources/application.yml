@@ -1,22 +1,33 @@
 
+server:
+  port: 8080
+
+uploadFolder: D:/
+file.upload.path: D://images/
+file.upload.path.relative: /images/**
 
 spring:
-  mvc:
-#    servlet:
-#      path: /sec
-#    view:
-#      prefix: classpath:/templates
-#      suffix: .html
-#    static-path-pattern: /static/**
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+  mail:
+    default-encoding: UTF-8
+    host: smtp.163.com
+    username: 13941715477@163.com
+    password: FYLGHIKOZQJWUYSV
 
+  mvc:
+    static-path-pattern: /**
   thymeleaf:
     cache: false
     content-type: text/html
     enabled: true
     encoding: UTF-8
-    mode: HTML5
+    mode: LEGACYHTML5
     suffix: .html
-    prefix: classpath:/templates
+    prefix: classpath:/templates/
   resources:
       static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/templates/
   datasource:
@@ -28,26 +39,22 @@ spring:
 #    maxWait: 60000
 #    minEvictableIdleTimeMillis: 300000
 #    minIdle: 500
-    password: 289989142
 #    poolPreparedStatements: true
 #    testOnBorrow: false
 #    testOnReturn: false
 #    testWhileIdle: true
 #    timeBetweenEvictionRunsMillis: 60000
-    type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://39.103.152.64:3306/seckill?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+#    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://39.103.152.64:3306/elastic_seckill?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
     username: root
+    password: 289989142
 #    validationQuery: select 'x'
 
-
-server:
-  port: 8080
-
 config:
-  jwt:
-    secret: lihengyu.top #这里可以自己定制
-    expire: 30 # 过期时间,单位分钟
-    header: lhyToken #随意定制
+#  jwt:
+#    secret: lihengyu.top #这里可以自己定制
+#    expire: 30 # 过期时间,单位分钟
+#    header: lhyToken #随意定制
 
 redis:
   # redis数据库索引(默认为0)，我们使用索引为3的数据库，避免和其他数据库冲突
@@ -71,7 +78,7 @@ redis:
     # 从连接池中获取连接最大等待时间（默认为-1，单位为毫秒，负数表示无限）
     max-wait: -1
 
-mybatis:
+mybatis-plus:
   configuration:
     default-fetch-size: 100
     default-statement-timeout: 3000

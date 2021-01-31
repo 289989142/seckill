@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class Login {
 
-
     @Secured({"ROLE_guest","ROLE_admin"})
     @RequestMapping("toMain")
     public String toMain(){
@@ -33,7 +32,7 @@ public class Login {
         return "demo";
     }
 
-    @RequestMapping("showLogin")
+    @RequestMapping("toLogin")
     private String showLogin(){
         return "login";
     }

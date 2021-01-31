@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/_fragments :: head(~{title})">
     <meta charset="UTF-8">
-    <title>商品添加</title>
-    <link rel="stylesheet" href="../static/css/me.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>后台管理</title>
+    <link rel="stylesheet" href="../../static/css/me.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
 </head>
 <body>
 <!--导航-->
-<nav class="ui inverted attached segment m-padded-tb-minier" th:replace="_fragments :: nav(5)">
+<nav class="ui inverted attached segment m-padded-tb-minier" th:replace="admin/_fragments :: nav(1)">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui teal header item">秒杀商城</h2>
@@ -34,18 +36,30 @@
         <div class="ui grid">
             <div class="seven wide column">
                 <!--添加图片-->
-                <img src="picture/goods.png">
+                <form enctype="multipart/form-data" method="post" action="/uploadPicture">
+                    <input id="uploadImg" type="file" name="img" style="display:none;"/>
+                    <img th:if="1 ne ${status}" id="toUploadImg" class="ui fluid image"  src = "https://image-hosting-lhy.oss-cn-beijing.aliyuncs.com/typora/image.png">
+                    <img id="imgShow" class="ui fluid image" th:src="@{${imgDirectory}}" style="z-index: 999">
+                    <input th:if="1 ne ${status}" type="submit" value="上传"/>
+                </form>
+<!--                <img src="https://image-hosting-lhy.oss-cn-beijing.aliyuncs.com/typora/a71ecc84d0917fee593b1c26f07bdfd3.jpg"/>-->
             </div>
 
             <div class="nine wide column">
                 <div class="m-fontsize-16">
                     名称:
                     <div class="ui input  m-div1 ">
-                        <input class="m-input1 " type="text" placeholder="请输入..">
+                        <input class="m-input1 " type="text" placeholder="请您先上传图片,请输入..">
                     </div>
                 </div>
                 <div>
                     价格:
+                    <div class="ui input ">
+                        <input type="text" placeholder="请输入..">
+                    </div>
+                </div>
+                <div>
+                    类型:
                     <div class="ui input ">
                         <input type="text" placeholder="请输入..">
                     </div>
@@ -63,27 +77,8 @@
                             <input type="text" placeholder="请输入..">
                         </div>
                     </div>
-                    <div class="eight wide column">
-                        是否开启秒杀
-                        <button id="btn-seckill" onclick="switchSeckillState()" class="ui toggle button active" value="1">开启</button>
+                </div>
 
-                    </div>
-                </div>
-                <div class="ui grid">
-                    <div class="eight wide column">
-                        秒杀价格:
-                        <div class="ui input ">
-                            <input type="text" placeholder="请输入..">
-                        </div>
-                    </div>
-                    <div class="eight wide column">
-                        秒杀时间:
-                        <div class="ui input    ">
-                            <input type="text" placeholder="请输入..">
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
     </div>
@@ -105,6 +100,13 @@
         }
 
     }
+
+    $(document).ready(function(){
+        $('#toUploadImg').click(function(){
+            $('#uploadImg').click();
+        });
+
+    });
 </script>
 </body>
 </html>

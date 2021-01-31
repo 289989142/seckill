@@ -1,5 +1,7 @@
 package com.lhy.seckill.security.service;
 
+import com.lhy.seckill.security.bean.SkUserEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -17,22 +19,28 @@ import org.springframework.stereotype.Service;
  * @Version 1.0
  */
 @Service
+@Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private PasswordEncoder pw;
 
+    @Autowired
+    UserService userService;
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String account) throws UsernameNotFoundException {
+        System.out.println("test");
+
         //1 查数据库是否存在用户 不存在抛出异常发
-        if (!"admin".equals(username)) {
-            throw new UsernameNotFoundException("用户名不存在!");
+        SkUserEntity user = userService.getUserByAccount(account);
+        if (null == user) {
+            throw new UsernameNotFoundException("用户不存在!");
         }
 
-        //2.解析密码
-        String pwd = pw.encode("123");
+        //角色权限
+        String role = "ROLE_"+user.getRole();
 
-        return new User(username,pwd, AuthorityUtils.commaSeparatedStringToAuthorityList(
-                "admin,normal,ROLE_guest,ROLE_admin ,/insert,/delete"));
-
+        return new User(user.getAccount(),user.getPassword(),
+                AuthorityUtils.commaSeparatedStringToAuthorityList(role));
     }
 }

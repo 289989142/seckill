@@ -1,10 +1,11 @@
 package com.lhy.seckill.security.config;
 
-import com.lhy.seckill.seckill.handler.MyAccessDeniedHandler;
-import com.lhy.seckill.seckill.service.UserDetailsServiceImpl;
+import com.lhy.seckill.security.handler.MyAccessDeniedHandler;
+import com.lhy.seckill.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -37,6 +38,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    //认证
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.jdbcAuthentication().dataSource(dataSource);
+    }
+
+    //授权
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //表单提交
@@ -65,6 +73,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("demo").permitAll()
                 //login.html 不需要被认证
                 .antMatchers("/login.html").permitAll()
+                //admin角色才能访问admin下的请求
+                .antMatchers("/admin/**").hasRole("admin")
                 //错误页面不需要拦截
                 .antMatchers("/myerror.html").permitAll()
                 //放行静态资源
@@ -76,7 +86,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //ip地址权限  localhost为0.0.0.0.0.0.0.1
                 //.antMatchers("/main1.html").hasIpAddress("127.0.0.1")
 
-
                 //.antMatchers("/**/*.png").permitAll()
                 //.regexMatchers(".+[.]png").permitAll()
                 //请求方式任意
@@ -87,7 +96,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.mvcMatchers("/demo").servletPath("/sec").permitAll()
 
                 //所有请求都需要被认证
-                .anyRequest().authenticated();
+//                .anyRequest().authenticated();
+        ;
 
 
         //异常处理
@@ -105,13 +115,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //持久层对象
                 .tokenRepository(persistentTokenRepository);
       }
-
+    /**
+    * @Description //TODO 持久化token实现记住我
+    * @Param []
+    * @return org.springframework.security.web.authentication.rememberme.PersistentTokenRepository
+    **/
     @Bean
     public PersistentTokenRepository getPersistentTokenRepository(){
         JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
         jdbcTokenRepository.setDataSource(dataSource);
         //自动建表,第一次启动的时候需要,第二次启动要注释掉
-       // jdbcTokenRepository.setCreateTableOnStartup(true);
+        // jdbcTokenRepository.setCreateTableOnStartup(true);
         return jdbcTokenRepository;
     }
 

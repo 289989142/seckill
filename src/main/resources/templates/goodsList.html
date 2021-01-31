@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title>商品添加</title>
+    <link rel="stylesheet" href="../static/css/me.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
+</head>
+<body>
+<!--导航-->
+<nav class="ui inverted attached segment m-padded-tb-minier" th:replace="_fragments :: nav(1)">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui teal header item">秒杀商城</h2>
+            <a href="#" class="active  m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>搜索</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>秒杀</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="clone icon"></i>订单</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="info icon"></i>卖家中心</a>
+            <div class="right m-item item m-mobile-hide">
+                <div class="ui icon inverted transparent input">
+                    <input type="text" placeholder="Search...">
+                    <i class="search link icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="m-container m-padded-tb-big">
+<!--先填写商品信息再上传图片-->
+    <!--https://www.cnblogs.com/zhainan-blog/p/11169163.html-->
+    <div class="ui divider"></div>
+    <div class="ui  segment">
+        <div class="ui grid">
+            <div class="ui horizontal list">
+                <div class="item m-margin-lr m-margin-tb-large m-align-top m-padded-no" style="margin-left: 1em !important;">
+                    <div class="m-goods-div">
+                        <img class="ui image m-goods-img" src="../static/picture/goods.png" th:src="@{/picture/goods.png}">
+                        <div class="description m-text-word-wrap">
+                            <div class="header">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+                            <div class="header">22.98￥</div>
+                            asdasddddddddddddddddd
+                        </div>
+                    </div>
+                </div>
+                <div class="item m-margin-lr m-margin-tb-large m-align-top m-padded-no">
+                    <div class="m-goods-div">
+                        <img class="ui image m-goods-img" src="../static/picture/goods.png" th:src="@{/picture/goods.png}">
+                        <div class="description m-text-word-wrap">
+                            <div class="header">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+                            <div class="header">22.98￥</div>
+                            asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+                        </div>
+                    </div>
+                </div>
+                <div class="item m-margin-lr m-margin-tb-large m-align-top m-padded-no">
+                    <div class="m-goods-div">
+                        <img class="ui image m-goods-img" src="../static/picture/goods.png" th:src="@{/picture/goods.png}">
+                        <div class="description m-text-word-wrap">
+                            <div class="header">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+                            <div class="header">22.98￥</div>
+                            asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+                        </div>
+                    </div>
+                </div>
+                <div class="item m-margin-lr m-margin-tb-large m-align-top m-padded-no">
+                    <div class="m-goods-div">
+                        <img class="ui image m-goods-img" src="../static/picture/goods.png" th:src="@{/picture/goods.png}">
+                        <div class="description m-text-word-wrap">
+                            <div class="header">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+                            <div class="header">22.98￥</div>
+                            asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+                        </div>
+                    </div>
+                </div>
+                <div class="item m-margin-lr m-margin-tb-large m-align-top m-padded-no">
+                    <div class="m-goods-div">
+                        <img class="ui image m-goods-img" src="../static/picture/goods.png" th:src="@{/picture/goods.png}">
+                        <div class="description m-text-word-wrap">
+                            <div class="header">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+                            <div class="header">22.98￥</div>
+                            asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+<script>
+
+</script>
+</body>
+</html>
