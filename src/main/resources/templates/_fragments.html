@@ -23,15 +23,20 @@
             <a href="#" th:href="@{/searchCenter}" th:classappend="${n==2} ? 'active'" class="m-item item m-mobile-hide"><i class="idea icon"></i>搜索</a>
             <a href="#" th:href="@{/seckill}" th:classappend="${n==3} ? 'active'" class="m-item item m-mobile-hide"><i class="tags icon"></i>秒杀</a>
             <a href="#" th:href="@{/orders}" th:classappend="${n==4} ? 'active'" class="m-item item m-mobile-hide"><i class="clone icon"></i>订单</a>
-            <a href="#" th:href="@{/goods}" th:classappend="${n==5} ? 'active'" class="m-item item m-mobile-hide"><i class="info icon"></i>卖家中心</a>
+            <a href="#" th:href="@{/admin/goods}" th:classappend="${n==5} ? 'active'" class="m-item item m-mobile-hide"><i class="info icon"></i>卖家中心</a>
 
-            <div class="right m-item item m-mobile-hide">
-                <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
-                    <div class="ui icon inverted transparent input">
-                        <input type="text" name="query" placeholder="Search..."  th:value="${query}">
-                        <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+            <div class="right m-item m-mobile-hide menu">
+                <div class="ui dropdown item">
+                    <div class="text">
+                        <img th:src="@{#{blog.avatar}}" src="https://picsum.photos/id/237/100/100" alt="" class="ui avatar image">
+                        <span> 李恒宇1 </span>
+<!--                        <span th:text="${session.user.nickname}"> 李恒宇1 </span>-->
                     </div>
-                </form>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" th:href="@{/admin/logout}" class="item">注销</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -85,6 +90,10 @@
     <!--footer的最新推荐-->
     <script>
         $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
+
+        $('.ui.dropdown').dropdown({
+            on : 'hover'
+        });
     </script>
 </th:block>
 </body>

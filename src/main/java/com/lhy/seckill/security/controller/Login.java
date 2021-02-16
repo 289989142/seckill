@@ -2,6 +2,7 @@ package com.lhy.seckill.security.controller;
 
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -14,17 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class Login {
 
-    @Secured({"ROLE_guest","ROLE_admin"})
     @RequestMapping("toMain")
     public String toMain(){
         System.out.println("执行登陆成功");
         return "main";
     }
 
-    @RequestMapping("toError")
-    public String toError(){
-        System.out.println("执行登陆成功");
-        return "myerror";
+    @RequestMapping("loginFail")
+    public String loginFail(Model model){
+        System.out.println("执行登陆失败");
+        model.addAttribute("message","登陆失败请重试");
+        return "login";
     }
 
     @RequestMapping("demo")

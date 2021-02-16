@@ -24,11 +24,24 @@
             <a href="#" th:href="@{/userManager}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>用户管理</a>
             <a href="#" th:href="@{/goodsList}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="clone icon"></i>前台页面</a>
 
+
+            <div class="right m-item menu">
+                <div class="ui dropdown item">
+                    <div class="text">
+                        <img src="../../static/images/404.png" alt="" class="ui avatar image">
+                        李恒宇
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" class="item">注销</a>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
-    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
-        <i class="sidebar icon"></i>
-    </a>
+
+
 </nav>
 
 
@@ -76,6 +89,10 @@
     <!--footer的最新推荐-->
     <script>
         $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
+
+        $('.ui.dropdown').dropdown({
+            on : 'hover'
+        });
     </script>
 </th:block>
 </body>

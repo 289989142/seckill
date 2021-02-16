@@ -45,39 +45,39 @@
 <!--                <img src="https://image-hosting-lhy.oss-cn-beijing.aliyuncs.com/typora/a71ecc84d0917fee593b1c26f07bdfd3.jpg"/>-->
             </div>
 
-            <form method="post" th:action="@{/addGoods}">
-                <input type="hidden" name="picture" th:value="${imgDirectory}">
-
+            <form method="post" th:action="@{/admin/goods/update}" th:object="${goods}">
+                <input type="hidden" name="picture" th:value="${goods.picture}">
+                <input type="hidden" name="id" th:value="${goods.id}">
                 <div class="nine wide column">
                     <div class="m-fontsize-16">
                         名称:
                         <div class="ui input  m-div1 ">
-                            <input name="name" id="goodsName" class="m-input1 " type="text" placeholder="请您先上传图片,请输入..">
+                            <input th:value="${goods.name}" name="name" id="goodsName" class="m-input1 " type="text" placeholder="请您先上传图片,请输入..">
                         </div>
                     </div>
                     <div>
                         价格:
                         <div class="ui input ">
-                            <input name="price" id="goodsPrice" type="text" placeholder="请输入..">
+                            <input th:value="${goods.price}" name="price" id="goodsPrice" type="text" placeholder="请输入..">
                         </div>
                     </div>
                     <div>
                         类型:
                         <div class="ui input ">
-                            <input name="type" id="goodsType" type="text" placeholder="请输入..">
+                            <input th:value="${goods.type}"  name="type" id="goodsType" type="text" placeholder="请输入..">
                         </div>
                     </div>
                     <div>
                         描述:
                         <div class="ui input ">
-                            <input name="description" id="goodsDesc" type="text" placeholder="请输入..">
+                            <input th:value="${goods.description}"  name="description" id="goodsDesc" type="text" placeholder="请输入..">
                         </div>
                     </div>
                     <div class="ui grid">
                         <div class="eight wide column">
                             库存:
                             <div class="ui input ">
-                                <input name="stock" id="goodsStock" type="text" placeholder="请输入..">
+                                <input th:value="${goods.stock}" name="stock" id="goodsStock" type="text" placeholder="请输入..">
                             </div>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                     <div class="ui grid">
                         <div class="eight wide column">
                             <div class="ui input ">
-                                <button class="ui button green" >新增商品</button>
+                                <button class="ui button green" >修改商品</button>
                             </div>
                         </div>
                     </div>

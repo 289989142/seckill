@@ -1,15 +1,20 @@
 package com.lhy.seckill.security.service;
 
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.lhy.seckill.security.bean.SkUserEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @ClassName UserDetailServiceImpl
@@ -29,7 +34,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String account) throws UsernameNotFoundException {
-        System.out.println("test");
 
         //1 查数据库是否存在用户 不存在抛出异常发
         SkUserEntity user = userService.getUserByAccount(account);
@@ -38,9 +42,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         //角色权限
-        String role = "ROLE_"+user.getRole();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        if (StringUtils.isNotBlank(user.getRole())) {
+            String[] roles = user.getRole().split(",");
+            for (String role : roles) {
+                if (StringUtils.isNotBlank(role)) {
+                    authorities.add(new SimpleGrantedAuthority(role.trim()));
+                }
+            }
+        }
 
-        return new User(user.getAccount(),user.getPassword(),
-                AuthorityUtils.commaSeparatedStringToAuthorityList(role));
+        System.out.println(account+"已登录，角色："+authorities);
+
+        return new User(user.getAccount(),user.getPassword(), authorities);
     }
 }

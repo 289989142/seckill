@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -139,20 +138,6 @@ public class Register {
             return true;
         }
     }
-//    public ModelAndView imgvrifyControllerDefaultKaptcha(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
-//        ModelAndView andView = new ModelAndView();
-//        String captchaId = (String) httpServletRequest.getSession().getAttribute("vrifyCode");
-//        String parameter = httpServletRequest.getParameter("vrifyCode");
-//        System.out.println("Session  vrifyCode "+captchaId+" form vrifyCode "+parameter);
-//
-//        if (!captchaId.equals(parameter)) {
-//            andView.addObject("info", "错误的验证码");
-//            andView.setViewName("index");
-//        } else {
-//            andView.addObject("info", "登录成功");
-//            andView.setViewName("success");
-//        }
-//        return andView;
-//    }
+
 
 }

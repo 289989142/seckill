@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //认证
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource);
+        auth.userDetailsService(userDetailsService);
     }
 
     //授权
@@ -55,11 +55,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //当发现是/login时认为是登录 必须和表单提交地址一样 去执行UserDetailsServiceImpl登录逻辑
                 .loginProcessingUrl("/login")
                 //自定义登陆页面
-                .loginPage("/login.html")
+                .loginPage("/toLogin")
                 //登陆成功后跳转页面 必须是post请求
-                .successForwardUrl("/toMain")
+                .successForwardUrl("/")
                 //登陆失败后跳转页面 post
-                .failureForwardUrl("/toError");
+                .failureForwardUrl("/loginFail");
              /*   .successHandler(new MyAuthenticationSuccessHandler("/main.html"))
                 .failureHandler(new MyAuthenticationFailureHandler("/myerror.html"));*/
         //退出登录
@@ -70,32 +70,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login.html");
 
         http.authorizeRequests()
-                .antMatchers("demo").permitAll()
-                //login.html 不需要被认证
-                .antMatchers("/login.html").permitAll()
+//                .antMatchers("/toLogin").permitAll()
+//                .antMatchers("/toRegister").permitAll()
+//                .antMatchers("/login").permitAll()
+//                .antMatchers("/register").permitAll()
                 //admin角色才能访问admin下的请求
-                .antMatchers("/admin/**").hasRole("admin")
-                //错误页面不需要拦截
-                .antMatchers("/myerror.html").permitAll()
+                .antMatchers("/admin/**").hasAnyAuthority("admin")
                 //放行静态资源
                 .antMatchers("/js/**","/css/**","picture/**").permitAll()
-                //权限认证
-                //.antMatchers("/main1.html").hasAnyAuthority("admin","admin1")
-                //角色认证
-                //.antMatchers("/main1.html").hasRole("guest")
-                //ip地址权限  localhost为0.0.0.0.0.0.0.1
-                //.antMatchers("/main1.html").hasIpAddress("127.0.0.1")
-
-                //.antMatchers("/**/*.png").permitAll()
-                //.regexMatchers(".+[.]png").permitAll()
-                //请求方式任意
-                //.regexMatchers("/demo").permitAll()
-                //请求方式必须为post
-                //.regexMatchers(HttpMethod.POST,"/demo").permitAll()
-                //配置servletPath
-                //.mvcMatchers("/demo").servletPath("/sec").permitAll()
-
-                //所有请求都需要被认证
 //                .anyRequest().authenticated();
         ;
 

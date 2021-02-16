@@ -83,5 +83,6 @@ mybatis-plus:
     default-fetch-size: 100
     default-statement-timeout: 3000
     map-underscore-to-camel-case: true
-  mapperLocations: classpath:com/jesper/seckill/mapper/*.xml
-  type-aliases-package: com.jesper.seckill.mapper
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #打印sql
+  mapperLocations: classpath:com/lhy/seckill/mapper/*.xml
+  type-aliases-package: com.lhy.seckill.mapper
