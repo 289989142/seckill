@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
+<head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
-    <title>商品添加</title>
+    <title>秒杀商品</title>
     <link rel="stylesheet" href="../static/css/me.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
 </head>
 <body>
 <!--导航-->
-<nav class="ui inverted attached segment m-padded-tb-minier" th:replace="_fragments :: nav(5)">
+<nav class="ui inverted attached segment m-padded-tb-minier" th:replace="_fragments :: nav(3)">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui teal header item">秒杀商城</h2>

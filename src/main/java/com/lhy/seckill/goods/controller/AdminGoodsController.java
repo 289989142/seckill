@@ -1,7 +1,9 @@
 package com.lhy.seckill.goods.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.lhy.seckill.goods.entity.SkGoodsSeckillEntity;
 import com.lhy.seckill.goods.service.GoodsService;
+import com.lhy.seckill.goods.service.SeckillGoodsService;
 import com.lhy.seckill.security.bean.SkGoodsEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,7 +32,14 @@ public class AdminGoodsController {
 
     @Autowired
     GoodsService goodsService;
+    @Autowired
+    SeckillGoodsService seckillGoodsService;
 
+    /**
+    * @Description //TODO 商品页面展示
+    * @Param [model, pageNum, pageSize]
+    * @return java.lang.String
+    **/
     @RequestMapping("/admin/goods")
     public String adminGoods(Model model,
                               @RequestParam(required = false,defaultValue = "0",value = "pageNum") int pageNum,
@@ -38,6 +47,19 @@ public class AdminGoodsController {
         IPage<SkGoodsEntity> goodsPage = goodsService.getGoodsPage(pageNum, pageSize);
         model.addAttribute("pageInfo",goodsPage);
         return "/admin/goods";
+    }
+    /**
+     * @Description //TODO 秒杀商品页面展示
+     * @Param [model, pageNum, pageSize]
+     * @return java.lang.String
+     **/
+    @RequestMapping("/admin/seckillGoods")
+    public String adminSeckillGoods(Model model,
+                             @RequestParam(required = false,defaultValue = "0",value = "pageNum") int pageNum,
+                             @RequestParam(required = false,defaultValue = "5",value = "pageSize") int pageSize) {
+        IPage<SkGoodsSeckillEntity> goodsPage = seckillGoodsService.getGoodsPage(pageNum, pageSize);
+        model.addAttribute("pageInfo",goodsPage);
+        return "/admin/seckillgoods";
     }
 
     /**

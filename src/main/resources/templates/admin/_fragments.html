@@ -18,10 +18,10 @@
 <nav th:fragment="nav(n)" class="ui inverted attached segment m-padded-tb-mini" >
     <div class="ui container">
         <div class="ui inverted secondary stackable menu ">
-            <h2 class="ui teal header item">Blog</h2>
-            <a href="#" th:href="@{/goodsManager}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>普通商品</a>
-            <a href="#" th:href="@{/seckillManager}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i>秒杀商品</a>
-            <a href="#" th:href="@{/userManager}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>用户管理</a>
+            <h2 class="ui teal header item">秒杀商城</h2>
+            <a href="#" th:href="@{/admin/goods}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>普通商品</a>
+            <a href="#" th:href="@{/admin/seckillGoods}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i>秒杀商品</a>
+            <a href="#" th:href="@{/admin/userManager}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>用户管理</a>
             <a href="#" th:href="@{/goodsList}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="clone icon"></i>前台页面</a>
 
 
