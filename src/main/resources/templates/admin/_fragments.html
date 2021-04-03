@@ -28,7 +28,7 @@
             <div class="right m-item menu">
                 <div class="ui dropdown item">
                     <div class="text">
-                        <img src="../../static/images/404.png" alt="" class="ui avatar image">
+                        <img src="../../static/images/404.png" th:src="@{/images/404.png}" alt="" class="ui avatar image">
                         李恒宇
                     </div>
                     <i class="dropdown icon"></i>
@@ -53,12 +53,7 @@
                 <img src="../static/images/404.png" th:src="@{/images/wx.jpg}" class="ui rounded image" style="width:110px">
             </div>
             <div class="three wide column" >
-                <h4 class="ui inverted header m-opacity-mini">最新博客</h4>
-                <div id="newblog-container">
-                    <div class="ui inverted link list" th:fragment="newblogList">
-                        <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item m-text-thin" th:each="blog : ${newblogs}" th:text="${blog.title}">最新文章</a>
-                    </div>
-                </div>
+
 
             </div>
             <div class="three wide column">

@@ -4,17 +4,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.lhy.seckill.goods.service.GoodsService;
 import com.lhy.seckill.security.bean.SkGoodsEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.UUID;
 
 /**
  * @ClassName GoodsManager
@@ -29,17 +21,14 @@ public class GoodsController {
     @Autowired
     GoodsService goodsService;
 
-    @RequestMapping("/goodsAdd")
-    public String toGoodsAdd() {
-        return "admin/goodsAdd";
-    }
+
     @RequestMapping("/goodsManager")
     public String toGoodsManager() {
         return "admin/goods";
     }
     @RequestMapping("/seckillManager")
     public String toSeckillManger() {
-        return "admin/seckillgoods";
+        return "seckillGoods";
     }
     @RequestMapping("/userManager")
     public String upload() {
