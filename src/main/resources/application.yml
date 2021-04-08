@@ -7,6 +7,11 @@ file.upload.path: D://images/
 file.upload.path.relative: /images/**
 
 spring:
+  elasticsearch:
+    rest:
+      uris: http://39.103.152.64:9200
+      connection-timeout: 1000
+      read-timeout: 1000
   servlet:
     multipart:
       enabled: true

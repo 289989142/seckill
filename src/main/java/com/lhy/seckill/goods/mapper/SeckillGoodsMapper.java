@@ -2,7 +2,6 @@ package com.lhy.seckill.goods.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lhy.seckill.goods.entity.SkGoodsSeckillEntity;
-import com.lhy.seckill.security.bean.SkGoodsEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

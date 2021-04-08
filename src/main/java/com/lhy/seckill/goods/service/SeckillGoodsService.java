@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lhy.seckill.goods.entity.SkGoodsSeckillEntity;
 import com.lhy.seckill.goods.mapper.SeckillGoodsMapper;
-import com.lhy.seckill.security.bean.SkGoodsEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -2,7 +2,7 @@ package com.lhy.seckill.goods.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.lhy.seckill.goods.service.GoodsService;
-import com.lhy.seckill.security.bean.SkGoodsEntity;
+import com.lhy.seckill.goods.entity.SkGoodsEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

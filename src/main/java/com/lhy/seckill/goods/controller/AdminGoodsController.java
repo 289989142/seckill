@@ -4,11 +4,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.lhy.seckill.goods.entity.SkGoodsSeckillEntity;
 import com.lhy.seckill.goods.service.GoodsService;
 import com.lhy.seckill.goods.service.SeckillGoodsService;
-import com.lhy.seckill.security.bean.SkGoodsEntity;
+import com.lhy.seckill.goods.entity.SkGoodsEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,7 +40,6 @@ public class AdminGoodsController {
     * @Param [model, pageNum, pageSize]
     * @return java.lang.String
     **/
-    @Transactional
     @RequestMapping("/admin/goods")
     public String adminGoods(Model model,
                               @RequestParam(required = false,defaultValue = "0",value = "pageNum") int pageNum,
@@ -77,7 +75,6 @@ public class AdminGoodsController {
      * @Param
      * @return
      **/
-    @Transactional
     @PostMapping("/addGoods")
     public String addGoods(SkGoodsEntity entity){
         goodsService.addGoods(entity);
@@ -95,7 +92,7 @@ public class AdminGoodsController {
      * @return
      **/
     @GetMapping("admin/goods/{id}/input")
-    public String editInput(@PathVariable Long id, Model model) {
+    public String editInput(@PathVariable Integer id, Model model) {
         SkGoodsEntity goods = goodsService.getGoods(id);
         model.addAttribute("goods", goods);
         model.addAttribute("imgDirectory",goods.getPicture());
@@ -115,7 +112,6 @@ public class AdminGoodsController {
     * @Param [id, model]
     * @return java.lang.String
     **/
-    @Transactional
     @PostMapping("/admin/goods/update")
     public String updateGoods(SkGoodsEntity entity) {
         goodsService.updateGoods(entity);
@@ -132,9 +128,8 @@ public class AdminGoodsController {
      * @Param [id, attributes]
      * @return java.lang.String
      **/
-    @Transactional
     @GetMapping("/admin/goods/{id}/delete")
-    public String delete(@PathVariable Long id, RedirectAttributes attributes) {
+    public String delete(@PathVariable Integer id, RedirectAttributes attributes) {
         goodsService.deleteGoods(id);
         attributes.addFlashAttribute("message", "删除成功");
         return "redirect:/admin/goods";
