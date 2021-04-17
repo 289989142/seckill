@@ -24,6 +24,8 @@ import java.time.LocalDateTime;
 @Service
 public class GoodsService {
 
+    //TODO 做es查询  优化图片上传
+
     @Autowired(required = false)
     private  GoodsMapper goodsMapper;
 
@@ -41,8 +43,10 @@ public class GoodsService {
     public int addGoods(SkGoodsEntity entity){
         entity.setCreateTime(LocalDateTime.now());
         entity.setLastTime(LocalDateTime.now());
+        int result = goodsMapper.insert(entity);
+        entity.setId(entity.getId());
         repository.save(convert(entity));
-        return goodsMapper.insert(entity);
+        return result;
     }
     @Transactional(rollbackFor = Exception.class)
     public int deleteGoods(Integer id){
