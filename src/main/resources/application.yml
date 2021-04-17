@@ -10,8 +10,8 @@ spring:
   elasticsearch:
     rest:
       uris: http://39.103.152.64:9200
-      connection-timeout: 1000
-      read-timeout: 1000
+      username: elastic
+      password: 123456
   servlet:
     multipart:
       enabled: true

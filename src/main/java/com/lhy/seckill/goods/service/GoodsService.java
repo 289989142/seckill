@@ -2,9 +2,11 @@ package com.lhy.seckill.goods.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.lhy.seckill.goods.entity.ElasticSearchGoodsEntity;
 import com.lhy.seckill.goods.mapper.GoodsMapper;
 import com.lhy.seckill.goods.entity.SkGoodsEntity;
 import com.lhy.seckill.goods.mapper.GoodsRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.stereotype.Service;
@@ -39,7 +41,7 @@ public class GoodsService {
     public int addGoods(SkGoodsEntity entity){
         entity.setCreateTime(LocalDateTime.now());
         entity.setLastTime(LocalDateTime.now());
-        repository.save(entity);
+        repository.save(convert(entity));
         return goodsMapper.insert(entity);
     }
     @Transactional(rollbackFor = Exception.class)
@@ -55,9 +57,24 @@ public class GoodsService {
     @Transactional(rollbackFor = Exception.class)
     public int updateGoods(SkGoodsEntity entity){
         repository.deleteById(entity.getId());
-        repository.save(entity);
-
+        repository.save(convert(entity));
         entity.setLastTime(LocalDateTime.now());
         return goodsMapper.updateById(entity);
     }
+
+
+    private ElasticSearchGoodsEntity convert(SkGoodsEntity entity){
+        ElasticSearchGoodsEntity elasticSearchGoodsEntity = new ElasticSearchGoodsEntity();
+        elasticSearchGoodsEntity.setId(entity.getId());
+        elasticSearchGoodsEntity.setName(entity.getName());
+        elasticSearchGoodsEntity.setPrice(entity.getPrice());
+        elasticSearchGoodsEntity.setStock(entity.getStock());
+        elasticSearchGoodsEntity.setDescription(entity.getDescription());
+        elasticSearchGoodsEntity.setType(entity.getType());
+        elasticSearchGoodsEntity.setCreateTime(entity.getCreateTime());
+        elasticSearchGoodsEntity.setLastTime(entity.getLastTime());
+
+        return elasticSearchGoodsEntity;
+    }
+
 }

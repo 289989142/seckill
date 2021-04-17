@@ -1,5 +1,6 @@
 package com.lhy.seckill.goods.mapper;
 
+import com.lhy.seckill.goods.entity.ElasticSearchGoodsEntity;
 import com.lhy.seckill.goods.entity.SkGoodsEntity;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Component;
@@ -12,5 +13,5 @@ import org.springframework.stereotype.Component;
  * @Version 1.0
  */
 @Component
-public interface GoodsRepository extends ElasticsearchRepository<SkGoodsEntity,Integer> {
+public interface GoodsRepository extends ElasticsearchRepository<ElasticSearchGoodsEntity,Integer> {
 }

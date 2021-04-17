@@ -34,7 +34,6 @@ public class AdminGoodsController {
     GoodsService goodsService;
     @Autowired
     SeckillGoodsService seckillGoodsService;
-
     /**
     * @Description //TODO 商品页面展示
     * @Param [model, pageNum, pageSize]
