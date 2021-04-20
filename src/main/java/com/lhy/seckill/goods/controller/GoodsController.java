@@ -1,8 +1,11 @@
 package com.lhy.seckill.goods.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.lhy.seckill.core.base.MyPage;
+import com.lhy.seckill.goods.entity.ElasticSearchGoodsEntity;
 import com.lhy.seckill.goods.service.GoodsService;
 import com.lhy.seckill.goods.entity.SkGoodsEntity;
+import com.lhy.seckill.goods.service.param.GoodsSearchParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,6 +65,11 @@ public class GoodsController {
     }
 
 
+    @GetMapping("/search")
+    @ResponseBody
+    public MyPage<SkGoodsEntity> search(GoodsSearchParam param){
+        return goodsService.search(param);
+    }
 
 
 }

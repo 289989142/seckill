@@ -13,6 +13,7 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -53,15 +54,11 @@ public class ElasticSearchGoodsEntity {
     private String type;
 
     /**创建时间*/
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") //arg in
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss") //arg out
     @Field(type = FieldType.Date,format = DateFormat.basic_date)
-    private LocalDateTime createTime;
+    private LocalDate createTime;
 
     /**最后更新时间*/
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") //arg in
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss") //arg out
     @Field(type = FieldType.Date,format = DateFormat.basic_date)
-    private LocalDateTime lastTime;
+    private LocalDate lastTime;
 
 }

@@ -35,7 +35,7 @@ public class AdminGoodsController {
     @Autowired
     SeckillGoodsService seckillGoodsService;
     /**
-    * @Description //TODO 商品页面展示
+    * @Description // 商品页面展示
     * @Param [model, pageNum, pageSize]
     * @return java.lang.String
     **/
@@ -57,7 +57,7 @@ public class AdminGoodsController {
     }
 
     /**
-    * @Description //TODO 去新增商品页面
+    * @Description //去新增商品页面
     * @Param []
     * @return java.lang.String
     **/
@@ -70,7 +70,7 @@ public class AdminGoodsController {
         return "admin/seckillGoodsAdd";
     }
     /**
-     * @Description //TODO 添加商品
+     * @Description //添加商品
      * @Param
      * @return
      **/
@@ -86,7 +86,7 @@ public class AdminGoodsController {
     }
 
     /**
-     * @Description //TODO 跳转编辑修改商品
+     * @Description //跳转编辑修改商品
      * @Param
      * @return
      **/
@@ -107,7 +107,7 @@ public class AdminGoodsController {
         return "admin/seckillGoodsInput";
     }
     /**
-    * @Description //TODO 更新商品
+    * @Description //更新商品
     * @Param [id, model]
     * @return java.lang.String
     **/
@@ -123,7 +123,7 @@ public class AdminGoodsController {
     }
 
     /**
-     * @Description //TODO 删除物品
+     * @Description //删除物品
      * @Param [id, attributes]
      * @return java.lang.String
      **/
@@ -141,7 +141,7 @@ public class AdminGoodsController {
     }
 
     /**
-     * @Description //TODO 上传图片及回显
+     * @Description //上传图片及回显
      * @Param [map, fileUpload]
      * @return java.lang.String
      **/

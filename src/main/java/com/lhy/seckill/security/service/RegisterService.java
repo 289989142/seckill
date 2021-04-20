@@ -25,7 +25,7 @@ public class RegisterService {
     private SkUserMapper skUserMapper;
 
     /**
-    * @Description //TODO 验证账户是否已经注册
+    * @Description //验证账户是否已经注册
     * @Param account
     * @return 验证通过返回true
     **/

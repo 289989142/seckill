@@ -98,7 +98,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .tokenRepository(persistentTokenRepository);
       }
     /**
-    * @Description //TODO 持久化token实现记住我
+    * @Description //持久化token实现记住我
     * @Param []
     * @return org.springframework.security.web.authentication.rememberme.PersistentTokenRepository
     **/

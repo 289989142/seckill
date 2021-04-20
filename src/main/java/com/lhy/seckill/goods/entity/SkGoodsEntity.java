@@ -50,5 +50,14 @@ public class SkGoodsEntity {
   @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss") //arg out
   private LocalDateTime lastTime;
 
+  public SkGoodsEntity(ElasticSearchGoodsEntity entity,String pic){
+    id = entity.getId();
+    name = entity.getName();
+    price = entity.getPrice();
+    stock = entity.getStock();
+    description = entity.getDescription();
+    type = entity.getType();
+    picture = pic;
+  }
 
 }
