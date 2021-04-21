@@ -2,18 +2,18 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
-    <title>商品列表</title>
+    <title>搜索</title>
     <link rel="stylesheet" href="../static/css/me.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
 </head>
 <body>
 <!--导航-->
-<nav class="ui inverted attached segment m-padded-tb-minier" th:replace="_fragments :: nav(1)">
+<nav class="ui inverted attached segment m-padded-tb-minier" th:replace="_fragments :: nav(2)">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui teal header item">秒杀商城</h2>
-            <a href="#" class="active  m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>搜索</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
+            <a href="#" class="active m-item item m-mobile-hide"><i class="idea icon"></i>搜索</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>秒杀</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="clone icon"></i>订单</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="info icon"></i>卖家中心</a>
@@ -29,6 +29,17 @@
 <div class="m-container m-padded-tb-big">
 <!--先填写商品信息再上传图片-->
     <!--https://www.cnblogs.com/zhainan-blog/p/11169163.html-->
+    <div  class="ui  segment form">
+        <input type="hidden" name="page" >
+        <div class="inline fields">
+            <div class="field">
+                <input type="text" name="title" placeholder="搜索名称或描述...">
+            </div>
+            <div class="field">
+                <button type="button" id="search-btn" class="ui teal basic button"><i class="search icon"></i>搜索</button>
+            </div>
+        </div>
+    </div>
     <div class="ui divider"></div>
     <div class="ui  segment">
         <div class="ui grid">
@@ -47,26 +58,24 @@
         </div>
 
     </div>
-    <!--分页-->
-    <div class="ui bottom attached segment m-opacity stackable grid">
-        <div class="three wide column" align="center">
-            <a class="ui teal basic button mini item " th:href="@{'/'+${pageInfo.current -1}}" th:if="${pageInfo.current>1}">上一页</a>
-        </div>
-
-        <div class="ten wide column" align="center">
-            <p> <span th:text="${pageInfo.current}"></span> / <span th:text="${pageInfo.pages}"></span> </p>
-        </div>
-
-        <div class="three wide column" align="center">
-            <a class="ui teal basic button mini item" th:href="@{'/'+${pageInfo.current +1}}" th:if="${pageInfo.current<pageInfo.pages}">下一页</a>
-    </div>
-</div>
 </div>
 
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
 <script>
+    $("#search-btn").click(function () {
+        $("[name='page']").val(0);
+        loaddata();
+    });
 
+    function loaddata() {
+        $("#table-container").load(/*[[@{/admin/blogs/search}]]*/"/admin/blogs/search",{
+            title : $("[name='title']").val(),
+            typeId : $("[name='typeId']").val(),
+            recommend: $("[name='recommend']").prop("checked"),
+            page : $("[name='page']").val()
+        });
+    }
 </script>
 </body>
 </html>

@@ -2,7 +2,6 @@ package com.lhy.seckill.goods.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.lhy.seckill.core.base.MyPage;
-import com.lhy.seckill.goods.entity.ElasticSearchGoodsEntity;
 import com.lhy.seckill.goods.service.GoodsService;
 import com.lhy.seckill.goods.entity.SkGoodsEntity;
 import com.lhy.seckill.goods.service.param.GoodsSearchParam;
@@ -25,51 +24,58 @@ public class GoodsController {
     GoodsService goodsService;
 
 
-    @RequestMapping("/goodsManager")
+    @GetMapping("/goodsManager")
     public String toGoodsManager() {
         return "admin/goods";
     }
-    @RequestMapping("/seckillManager")
+    @GetMapping("/seckillManager")
     public String toSeckillManger() {
         return "seckillGoods";
     }
-    @RequestMapping("/userManager")
+    @GetMapping("/userManager")
     public String upload() {
         return "admin/users";
     }
 
-    @RequestMapping({"/goodsList", "/"})
+    @GetMapping({"/goodsList", "/"})
     public String toGoodsList(Model model,
                               @RequestParam(required = false,defaultValue = "0",value = "pageNum") int pageNum,
-                              @RequestParam(required = false,defaultValue = "5",value = "pageSize") int pageSize) {
+                              @RequestParam(required = false,defaultValue = "9",value = "pageSize") int pageSize) {
         IPage<SkGoodsEntity> goodsPage = goodsService.getGoodsPage(pageNum, pageSize);
         model.addAttribute("pageInfo",goodsPage);
         return "goodsList";
     }
 
-    @RequestMapping("/searchCenter")
+    @GetMapping("/searchCenter")
     public String searchCenter() {
         return "searchCenter";
     }
-    @RequestMapping("/seckill")
+    @GetMapping("/seckill")
     public String toSeckillList() {
         return "seckillList";
     }
-    @RequestMapping("/orders")
+    @GetMapping("/orders")
     public String orders() {
         return "orders";
     }
-    @RequestMapping("/goods")
+    @GetMapping("/goods")
     public String toGoods() {
         return "admin/goods";
     }
 
 
-    @GetMapping("/search")
-    @ResponseBody
-    public MyPage<SkGoodsEntity> search(GoodsSearchParam param){
-        return goodsService.search(param);
-    }
+//    @GetMapping("/search")
+//    @ResponseBody
+//    public MyPage<SkGoodsEntity> search(GoodsSearchParam param){
+//        return goodsService.search(param);
+//    }
 
+    @GetMapping("/search")
+    public String search(Model model,GoodsSearchParam param){
+        MyPage<SkGoodsEntity> result = goodsService.search(param);
+        result.judgePageBoundary();
+        model.addAttribute("pageInfo",result);
+        return "search";
+    }
 
 }

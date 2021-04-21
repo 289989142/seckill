@@ -15,8 +15,31 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MyPage<T> {
+    //TODO 测试一下是否真的需要isFirstPage isLastPage hasPreviousPage hasNextPage  admin/goods页面中的分页如果没有bug就不需要
+
     int current = 1;
     int size = 10;
     int total = 0;
-    List<T> data;
+    int pages = (int)Math.ceil((double)this.total/(double)this.size) ;
+    List<T> records;
+
+    private boolean isFirstPage;
+    private boolean isLastPage;
+    private boolean hasPreviousPage;
+    private boolean hasNextPage;
+
+    public void judgePageBoundary() {
+        this.isFirstPage = this.current == 1;
+        this.isLastPage = this.current == pages || pages == 1;
+        this.hasPreviousPage = this.current > 1;
+        this.hasNextPage = this.current < pages;
+    }
+
+    public MyPage(int current , int size , int total , List<T> records){
+        this.current = current;
+        this.size=size;
+        this.total=total;
+        this.records=records;
+        this.pages=(int)Math.ceil((double)total/(double)size);
+    }
 }

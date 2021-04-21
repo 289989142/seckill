@@ -84,19 +84,21 @@
                     </tr>
                     </tbody>
                     <tfoot>
+                    <!--适配mybatis-plus的分页-->
                     <tr>
                         <th colspan="7">
                             <div class="ui inverted divided stackable grid">
                                 <div class="three wide column" align="center">
-                                    <a class="item" th:href="@{'/admin/goods?pageNum='+${pageInfo.current -1}}" th:if="${pageInfo.current>1}">上一页</a>
+                                    <a class="ui teal basic button mini item " th:href="@{'/admin/goods?pageNum='+${pageInfo.current -1}}" th:if="${pageInfo.current>1}">上一页</a>
                                 </div>
 
                                 <div class="ten wide column" align="center">
-                                    <p>第 <span th:text="${pageInfo.current}"></span> 页，共 <span th:text="${pageInfo.pages}"></span> 页，有 <span th:text="${pageInfo.total}"></span> 件商品</p>
+                                    <p> <span th:text="${pageInfo.current}"></span> / <span th:text="${pageInfo.pages}"></span> </p>
                                 </div>
 
-                                    <a class="item" th:href="@{'/admin/goods?pageNum='+${pageInfo.current +1}}" th:if="${pageInfo.current<pageInfo.pages}">下一页</a>
-
+                                <div class="three wide column" align="center">
+                                    <a class="ui teal basic button mini item " th:href="@{'/admin/goods?pageNum='+${pageInfo.current +1}}" th:if="${pageInfo.current<pageInfo.pages}">下一页</a>
+                                </div>
                             </div>
                             <div align="center">
                                 <a href="#" th:href="@{/goodsAdd}">

@@ -39,7 +39,7 @@ public class AdminGoodsController {
     * @Param [model, pageNum, pageSize]
     * @return java.lang.String
     **/
-    @RequestMapping("/admin/goods")
+    @GetMapping("/admin/goods")
     public String adminGoods(Model model,
                               @RequestParam(required = false,defaultValue = "0",value = "pageNum") int pageNum,
                               @RequestParam(required = false,defaultValue = "5",value = "pageSize") int pageSize) {
