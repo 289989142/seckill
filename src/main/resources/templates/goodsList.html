@@ -32,7 +32,7 @@
     <div class="ui divider"></div>
     <div class="ui  segment">
         <div class="ui grid">
-            <div class="ui horizontal list" th:each="goods : ${pageInfo.records}">
+            <div class="ui four wide column" th:each="goods : ${pageInfo.records}">
                 <div class="item m-margin-lr m-margin-tb-large m-align-top m-padded-no" style="margin-left: 1em !important;">
                     <div class="m-goods-div">
                         <img class="ui image m-goods-img" src="../static/picture/goods.png" th:src="@{ ${goods.picture} }">
@@ -50,7 +50,7 @@
     <!--分页-->
     <div class="ui bottom attached segment m-opacity stackable grid">
         <div class="three wide column" align="center">
-            <a class="ui teal basic button mini item " th:href="@{'/'+${pageInfo.current -1}}" th:if="${pageInfo.current>1}">上一页</a>
+            <a class="ui teal basic button mini item " th:href="@{'/?pageNum='+${pageInfo.current -1}}" th:if="${pageInfo.current>1}">上一页</a>
         </div>
 
         <div class="ten wide column" align="center">
@@ -58,7 +58,7 @@
         </div>
 
         <div class="three wide column" align="center">
-            <a class="ui teal basic button mini item" th:href="@{'/'+${pageInfo.current +1}}" th:if="${pageInfo.current<pageInfo.pages}">下一页</a>
+            <a class="ui teal basic button mini item" th:href="@{'/?pageNum='+${pageInfo.current +1}}" th:if="${pageInfo.current<pageInfo.pages}">下一页</a>
     </div>
 </div>
 </div>

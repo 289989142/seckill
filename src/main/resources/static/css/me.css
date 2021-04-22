@@ -73,6 +73,10 @@ body{
     margin-left: 1em; !important;
     margin-right: 1em; !important;
 }
+.m-margin-lr-big{
+    margin-left: 2em; !important;
+    margin-right: 2em; !important;
+}
 /*-------text-----*/
 .m-text-seckill{
     color: rgb(0,128,128);

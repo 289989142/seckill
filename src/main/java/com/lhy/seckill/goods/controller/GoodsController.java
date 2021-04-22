@@ -40,15 +40,19 @@ public class GoodsController {
     @GetMapping({"/goodsList", "/"})
     public String toGoodsList(Model model,
                               @RequestParam(required = false,defaultValue = "0",value = "pageNum") int pageNum,
-                              @RequestParam(required = false,defaultValue = "9",value = "pageSize") int pageSize) {
+                              @RequestParam(required = false,defaultValue = "12",value = "pageSize") int pageSize) {
         IPage<SkGoodsEntity> goodsPage = goodsService.getGoodsPage(pageNum, pageSize);
         model.addAttribute("pageInfo",goodsPage);
         return "goodsList";
     }
 
     @GetMapping("/searchCenter")
-    public String searchCenter() {
-        return "searchCenter";
+    public String searchCenter(Model model,
+                               @RequestParam(required = false,defaultValue = "0",value = "pageNum") int pageNum,
+                               @RequestParam(required = false,defaultValue = "12",value = "pageSize") int pageSize) {
+        IPage<SkGoodsEntity> goodsPage = goodsService.getGoodsPage(pageNum, pageSize);
+        model.addAttribute("pageInfo",goodsPage);
+        return "search";
     }
     @GetMapping("/seckill")
     public String toSeckillList() {
@@ -63,19 +67,12 @@ public class GoodsController {
         return "admin/goods";
     }
 
-
-//    @GetMapping("/search")
-//    @ResponseBody
-//    public MyPage<SkGoodsEntity> search(GoodsSearchParam param){
-//        return goodsService.search(param);
-//    }
-
-    @GetMapping("/search")
+    @PostMapping("/search")
     public String search(Model model,GoodsSearchParam param){
         MyPage<SkGoodsEntity> result = goodsService.search(param);
         result.judgePageBoundary();
         model.addAttribute("pageInfo",result);
-        return "search";
+        return "search :: goodsList";
     }
 
 }

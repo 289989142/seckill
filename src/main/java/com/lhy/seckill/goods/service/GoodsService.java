@@ -64,7 +64,7 @@ public class GoodsService {
                 .withHighlightFields(
                         new HighlightBuilder.Field("name"),
                         new HighlightBuilder.Field("description"))
-                .withHighlightBuilder(new HighlightBuilder().preTags("<span style='color:red'>").postTags("</span>"))
+                .withHighlightBuilder(new HighlightBuilder().preTags("->").postTags("<-"))
                 .build();
 
         SearchHits<ElasticSearchGoodsEntity> search = template.search(searchQuery, ElasticSearchGoodsEntity.class);

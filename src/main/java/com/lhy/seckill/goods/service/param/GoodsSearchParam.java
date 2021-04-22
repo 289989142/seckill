@@ -28,7 +28,7 @@ public class GoodsSearchParam {
     /**货物类型*/
     private String type;
 
-    private int current=0;
+    private int current=1;
 
     private int size=10;
 

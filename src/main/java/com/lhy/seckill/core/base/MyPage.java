@@ -15,7 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MyPage<T> {
-    //TODO 测试一下是否真的需要isFirstPage isLastPage hasPreviousPage hasNextPage  admin/goods页面中的分页如果没有bug就不需要
 
     int current = 1;
     int size = 10;
