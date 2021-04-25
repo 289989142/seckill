@@ -26,7 +26,7 @@ public class SearchController {
     * @Param [model, pageNum, pageSize]
     * @return java.lang.String
     **/
-    @GetMapping("/searchCenter")
+    @GetMapping("/toSearchCenter")
     public String searchCenter(Model model,
                                @RequestParam(required = false,defaultValue = "0",value = "pageNum") int pageNum,
                                @RequestParam(required = false,defaultValue = "12",value = "pageSize") int pageSize) {

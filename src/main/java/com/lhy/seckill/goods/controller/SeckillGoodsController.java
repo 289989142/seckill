@@ -2,7 +2,6 @@ package com.lhy.seckill.goods.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.lhy.seckill.goods.entity.SkGoodsSeckillEntity;
-import com.lhy.seckill.goods.service.GoodsService;
 import com.lhy.seckill.goods.service.SeckillGoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  */
 @Controller
 public class SeckillGoodsController {
-    @Autowired
-    GoodsService goodsService;
     @Autowired
     SeckillGoodsService seckillGoodsService;
 
@@ -39,7 +36,7 @@ public class SeckillGoodsController {
     * @Param []
     * @return java.lang.String
     **/
-    @RequestMapping("/seckillGoodsAdd")
+    @RequestMapping("/admin/toSeckillGoodsAdd")
     public String toSeckillGoodsAdd() {
         return "admin/seckillGoodsAdd";
     }
@@ -48,7 +45,7 @@ public class SeckillGoodsController {
     * @Param [entity]
     * @return java.lang.String
     **/
-    @PostMapping("/addSeckillGoods")
+    @PostMapping("/admin/addSeckillGoods")
     public String addSeckillGoods(SkGoodsSeckillEntity entity){
         seckillGoodsService.addGoods(entity);
         return "redirect:/admin/seckillGoods";
@@ -58,7 +55,7 @@ public class SeckillGoodsController {
     * @Param [id, model]
     * @return java.lang.String
     **/
-    @GetMapping("admin/seckillGoods/{id}/input")
+    @GetMapping("/admin/seckillGoods/{id}/toInput")
     public String seckillEditInput(@PathVariable Long id, Model model) {
         SkGoodsSeckillEntity goods = seckillGoodsService.getGoods(id);
         model.addAttribute("goods", goods);

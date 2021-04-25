@@ -78,7 +78,7 @@
                         <td>
                             <!--    <a href="#" class="ui teal basic button">编辑</a>
                                 <a href="#" class="ui red basic button">删除</a>   -->
-                            <a href="#" th:href="@{/admin/seckillGoods/{id}/input(id=${goods.id})}" class="ui mini teal basic button">编辑</a>
+                            <a href="#" th:href="@{/admin/seckillGoods/{id}/toInput(id=${goods.id})}" class="ui mini teal basic button">编辑</a>
                             <a href="#" th:href="@{/admin/seckillGoods/{id}/delete(id=${goods.id})}" onclick="return confirm('确定要删除该商品吗？三思啊! 删了可就没了！')" class="ui mini red basic button">删除</a>
 
                         </td>
@@ -90,18 +90,18 @@
                         <th colspan="7">
                             <div class="ui inverted divided stackable grid">
                                 <div class="three wide column" align="center">
-                                    <a class="item" th:href="@{'/admin/goods?pageNum='+${pageInfo.current -1}}" th:if="${pageInfo.current>1}">上一页</a>
+                                    <a class="item" th:href="@{'/admin/toGoods?pageNum='+${pageInfo.current -1}}" th:if="${pageInfo.current>1}">上一页</a>
                                 </div>
 
                                 <div class="ten wide column" align="center">
                                     <p>第 <span th:text="${pageInfo.current}"></span> 页，共 <span th:text="${pageInfo.pages}"></span> 页，有 <span th:text="${pageInfo.total}"></span> 件商品</p>
                                 </div>
 
-                                <a class="item" th:href="@{'/admin/goods?pageNum='+${pageInfo.current +1}}" th:if="${pageInfo.current<pageInfo.pages}">下一页</a>
+                                <a class="item" th:href="@{'/admin/toGoods?pageNum='+${pageInfo.current +1}}" th:if="${pageInfo.current<pageInfo.pages}">下一页</a>
 
                             </div>
                             <div align="center">
-                                <a href="#" th:href="@{/seckillGoodsAdd}">
+                                <a href="#" th:href="@{/admin/toSeckillGoodsAdd}">
                                     <button type="button" class="ui teal button m-mobile-wide m-margin-top"><i class="pencil icon"></i>新增</button>
                                 </a>
                             </div>
