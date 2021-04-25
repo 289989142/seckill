@@ -1,19 +1,16 @@
-package com.lhy.seckill.goods.service;
+package com.lhy.seckill.search.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import com.lhy.seckill.core.base.MyPage;
 import com.lhy.seckill.goods.entity.ElasticSearchGoodsEntity;
-import com.lhy.seckill.goods.mapper.GoodsMapper;
 import com.lhy.seckill.goods.entity.SkGoodsEntity;
+import com.lhy.seckill.goods.mapper.GoodsMapper;
 import com.lhy.seckill.goods.mapper.GoodsRepository;
 import com.lhy.seckill.goods.service.param.GoodsSearchParam;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
@@ -22,38 +19,30 @@ import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
 /**
- * @ClassName GoodsService
- * @Description 商品服务
+ * @Description search
  * @Author lihengyu
- * @Date 2021/2/1 10:24
- * @Version 1.0
+ * @Date 2021/4/25 18:23
  */
 @Service
-public class GoodsService {
-
-    //TODO 做 es查询 查询前端
-    //TODO 优化 图片上传 es同步mysql
-
-    @Autowired
-    private  GoodsMapper goodsMapper;
-
+public class SearchService {
     @Autowired
     ElasticsearchRestTemplate template;
     @Autowired
     private GoodsRepository repository;
+    @Autowired
+    private GoodsMapper goodsMapper;
+
 
     /** @Description 构建es分页 分词 高亮查询
-    * @Param [param]
-    * @return com.lhy.seckill.core.base.MyPage<com.lhy.seckill.goods.entity.SkGoodsEntity>
-    **/
+     * @Param [param]
+     * @return com.lhy.seckill.core.base.MyPage<com.lhy.seckill.goods.entity.SkGoodsEntity>
+     **/
     public MyPage<SkGoodsEntity> search(GoodsSearchParam param){
         BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery()
                 .should(QueryBuilders.matchQuery("name", param.getName()))
@@ -92,60 +81,4 @@ public class GoodsService {
         }
         return new MyPage<SkGoodsEntity>(param.getCurrent(),param.getSize(),searchHits.size(),skGoodsEntities);
     }
-
-    public IPage<SkGoodsEntity> getGoodsPage(int pageNum , int pageSize){
-        Page<SkGoodsEntity> page = new Page<>(pageNum,pageSize);
-        return goodsMapper.selectPage(page, null);
-    }
-
-    /** @Description mysql es同步新增数据
-    * @Param [entity]
-    * @return int
-    **/
-    @Transactional(rollbackFor = Exception.class)
-    public int addGoods(SkGoodsEntity entity){
-        entity.setCreateTime(LocalDateTime.now());
-        entity.setLastTime(LocalDateTime.now());
-        int result = goodsMapper.insert(entity);
-        entity.setId(entity.getId());
-        repository.save(convert(entity));
-        return result;
-    }
-
-    /** @Description mysql es同步删除数据
-    * @Param [id]
-    * @return int
-    **/
-    @Transactional(rollbackFor = Exception.class)
-    public int deleteGoods(Integer id){
-        repository.deleteById(id);
-        return goodsMapper.deleteById(id);
-    }
-
-    public SkGoodsEntity getGoods(Integer id){
-        return goodsMapper.selectById(id);
-    }
-
-    /** @Description mysql es同步更新数据
-    * @Param [entity]
-    * @return int
-    **/
-    @Transactional(rollbackFor = Exception.class)
-    public int updateGoods(SkGoodsEntity entity){
-        repository.deleteById(entity.getId());
-        repository.save(convert(entity));
-        entity.setLastTime(LocalDateTime.now());
-        return goodsMapper.updateById(entity);
-    }
-
-
-    private ElasticSearchGoodsEntity convert(SkGoodsEntity entity){
-        ElasticSearchGoodsEntity elasticSearchGoodsEntity = new ElasticSearchGoodsEntity();
-        BeanUtils.copyProperties(entity,elasticSearchGoodsEntity);
-        elasticSearchGoodsEntity.setCreateTime(entity.getCreateTime().toLocalDate());
-        elasticSearchGoodsEntity.setLastTime(entity.getLastTime().toLocalDate());
-
-        return elasticSearchGoodsEntity;
-    }
-
 }
