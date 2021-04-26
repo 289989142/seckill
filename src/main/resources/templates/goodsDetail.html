@@ -44,7 +44,7 @@
                 </form>
             </div>
 
-            <form method="post" th:action="@{/admin/goods/update}" th:object="${goods}">
+            <form method="post" th:action="@{}" th:object="${goods}">
                 <input type="hidden" name="picture" th:value="${goods.picture}">
                 <input type="hidden" name="id" th:value="${goods.id}">
                 <div class="nine wide column">

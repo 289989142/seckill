@@ -105,4 +105,15 @@ public class GoodsController {
         model.addAttribute("pageInfo",goodsPage);
         return "goodsList";
     }
+
+    /** @Description 根据id获取商品详情
+    * @Param [id, model]
+    * @return java.lang.String
+    **/
+    @GetMapping("goods/{id}")
+    public String goodsDetail(@PathVariable("id") Integer id , Model model){
+        SkGoodsEntity goods = goodsService.getGoods(id);
+        model.addAttribute("goods",goods);
+        return "goodsDetail";
+    }
 }
