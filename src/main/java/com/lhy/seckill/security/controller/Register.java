@@ -1,7 +1,7 @@
 package com.lhy.seckill.security.controller;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
-import com.lhy.seckill.core.Constant;
+import com.lhy.seckill.core.response.CodeMsg;
 import com.lhy.seckill.security.service.MailService;
 import com.lhy.seckill.security.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,13 +61,8 @@ public class Register {
 
     @RequestMapping("/register")
     public String register(Model model,RedirectAttributes attributes, HttpServletRequest request, String mailVerify, String email, String password, String verifyCode){
-        System.out.println(email);
-        System.out.println(password);
-        System.out.println(mailVerify);
-        System.out.println(verifyCode);
 
         if (!imgvrifyControllerDefaultKaptcha(request,verifyCode)){
-//            attributes.addFlashAttribute("message","图形验证码错误！请重试！");
             model.addAttribute("message","图形验证码错误！请重试！");
             return "register";
         }
@@ -79,7 +74,7 @@ public class Register {
         //调用注册业务
         int result = registerService.register(email, "测试", password, "测试", "guest");
 
-        if (Constant.ACCOUNT_HAS_REGISTERED == result){
+        if (CodeMsg.ACCOUNT_HAS_REGISTERED.getCode() == result){
             model.addAttribute("message","账户已经注册过！请登录！");
             return "register";
         }

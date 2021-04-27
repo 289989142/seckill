@@ -1,10 +1,10 @@
 package com.lhy.seckill.security.service;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.lhy.seckill.security.bean.SkUserEntity;
+import com.lhy.seckill.user.entity.SkUserEntity;
+import com.lhy.seckill.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

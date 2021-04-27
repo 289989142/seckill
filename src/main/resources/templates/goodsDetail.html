@@ -10,7 +10,7 @@
 </head>
 <body>
 <!--导航-->
-<nav class="ui inverted attached segment m-padded-tb-minier" th:replace="admin/_fragments :: nav(1)">
+<nav class="ui inverted attached segment m-padded-tb-minier" th:replace="_fragments :: nav(1)">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui teal header item">秒杀商城</h2>
@@ -37,46 +37,42 @@
         <div class="ui grid">
             <div class="seven wide column">
                 <!--添加图片-->
-                <form enctype="multipart/form-data" method="post" action="/uploadPicture">
-                    <input id="uploadImg" type="file" name="img" style="display:none;"/>
-                    <img th:if="1 ne ${status}" id="toUploadImg" class="ui fluid image"  src = "https://image-hosting-lhy.oss-cn-beijing.aliyuncs.com/typora/image.png">
-                    <img id="imgShow" class="ui fluid image" th:src="@{${imgDirectory}}" style="z-index: 999">
-                </form>
+                <img id="imgShow" class="ui fluid image" th:src="@{${goods.picture}}" style="z-index: 999">
             </div>
 
-            <form method="post" th:action="@{}" th:object="${goods}">
+            <form  th:object="${goods}">
                 <input type="hidden" name="picture" th:value="${goods.picture}">
                 <input type="hidden" name="id" th:value="${goods.id}">
                 <div class="nine wide column">
                     <div class="m-fontsize-16">
                         名称:
                         <div class="ui input  m-div1 ">
-                            <input th:value="${goods.name}" name="name" id="goodsName" class="m-input1 " type="text" placeholder="请您先上传图片,请输入..">
+                            <input readonly th:value="${goods.name}" name="name" id="goodsName" class="m-input1 " type="text" placeholder="请您先上传图片,请输入..">
                         </div>
                     </div>
                     <div>
                         价格:
                         <div class="ui input ">
-                            <input th:value="${goods.price}" name="price" id="goodsPrice" type="text" placeholder="请输入..">
+                            <input readonly th:value="${goods.price}" name="price" id="goodsPrice" type="text" placeholder="请输入..">
                         </div>
                     </div>
                     <div>
                         类型:
                         <div class="ui input ">
-                            <input th:value="${goods.type}"  name="type" id="goodsType" type="text" placeholder="请输入..">
+                            <input readonly th:value="${goods.type}"  name="type" id="goodsType" type="text" placeholder="请输入..">
                         </div>
                     </div>
                     <div>
                         描述:
                         <div class="ui input ">
-                            <input th:value="${goods.description}"  name="description" id="goodsDesc" type="text" placeholder="请输入..">
+                            <input readonly th:value="${goods.description}"  name="description" id="goodsDesc" type="text" placeholder="请输入..">
                         </div>
                     </div>
                     <div class="ui grid">
                         <div class="eight wide column">
                             库存:
                             <div class="ui input ">
-                                <input th:value="${goods.stock}" name="stock" id="goodsStock" type="text" placeholder="请输入..">
+                                <input readonly th:value="${goods.stock}" name="stock" id="goodsStock" type="text" placeholder="请输入..">
                             </div>
                         </div>
                     </div>

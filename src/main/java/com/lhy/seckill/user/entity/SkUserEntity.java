@@ -1,4 +1,4 @@
-package com.lhy.seckill.security.bean;
+package com.lhy.seckill.user.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;

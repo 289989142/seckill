@@ -1,13 +1,14 @@
-package com.lhy.seckill.security.mapper;
+package com.lhy.seckill.user.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.lhy.seckill.security.bean.SkUserEntity;
+import com.lhy.seckill.user.entity.SkUserEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
 /**
  * @author lihengyu
  */
-@Mapper
+@Component
 public interface SkUserMapper extends BaseMapper<SkUserEntity> {
 
 }

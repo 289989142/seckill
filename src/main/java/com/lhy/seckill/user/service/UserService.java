@@ -1,12 +1,10 @@
-package com.lhy.seckill.security.service;
+package com.lhy.seckill.user.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.lhy.seckill.security.bean.SkUserEntity;
-import com.lhy.seckill.security.mapper.SkUserMapper;
+import com.lhy.seckill.user.entity.SkUserEntity;
+import com.lhy.seckill.user.mapper.SkUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.sql.Wrapper;
 
 /**
  * @ClassName UserService

@@ -1,15 +1,14 @@
 package com.lhy.seckill.security.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.lhy.seckill.core.Constant;
-import com.lhy.seckill.security.bean.SkUserEntity;
-import com.lhy.seckill.security.mapper.SkUserMapper;
+import com.lhy.seckill.core.response.CodeMsg;
+import com.lhy.seckill.user.entity.SkUserEntity;
+import com.lhy.seckill.user.mapper.SkUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * @ClassName RegisterService
@@ -41,7 +40,7 @@ public class RegisterService {
 
     public int register(String account,String nickName,String password,String avatar,String role){
         if (!verifyAccount(account)){
-            return Constant.ACCOUNT_HAS_REGISTERED;
+            return CodeMsg.ACCOUNT_HAS_REGISTERED.getCode();
         }
 
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
@@ -56,6 +55,6 @@ public class RegisterService {
         entity.setLastTime(LocalDateTime.now());
         skUserMapper.insert(entity);
 
-        return Constant.SUCCESS;
+        return CodeMsg.SUCCESS.getCode();
     }
 }
