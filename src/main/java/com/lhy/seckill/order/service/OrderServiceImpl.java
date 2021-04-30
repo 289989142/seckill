@@ -3,6 +3,7 @@ package com.lhy.seckill.order.service;
 import com.lhy.seckill.core.redis.OrderKey;
 import com.lhy.seckill.core.redis.RedisService;
 import com.lhy.seckill.goods.entity.SkGoodsEntity;
+import com.lhy.seckill.goods.service.GoodsService;
 import com.lhy.seckill.order.entity.SkOrderEntity;
 import com.lhy.seckill.order.mapper.OrderMapper;
 import com.lhy.seckill.user.entity.SkUserEntity;
@@ -26,9 +27,8 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     RedisService redisService;
 
-    public SkOrderEntity getOrderByUserIdGoodsId(Integer userId, Integer goodsId) {
-        return redisService.get(OrderKey.getSeckillOrderByUidGid, "" + userId + "_" + goodsId, SkOrderEntity.class);
-    }
+    @Autowired
+    GoodsService goodsService;
 
     @Override
     public SkOrderEntity getOrderById(Integer orderId) {
@@ -37,7 +37,8 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public SkOrderEntity createOrder(SkUserEntity user, SkGoodsEntity goods) {
+    @Transactional
+    public SkOrderEntity createOrder(SkUserEntity user, SkGoodsEntity goods,Integer num) {
         SkOrderEntity orderInfo = new SkOrderEntity();
         orderInfo.setCreateTime(new Date());
         orderInfo.setGoodsCount(1);
@@ -45,8 +46,9 @@ public class OrderServiceImpl implements OrderService {
         orderInfo.setStatus(0);
         orderInfo.setUserId(user.getId());
         orderMapper.insert(orderInfo);
+        goodsService.reduceStock(goods.getId(),num);
 
-        redisService.set(OrderKey.getSeckillOrderByUidGid, "" + user.getId() + "_" + goods.getId(), orderInfo);
+//        redisService.set(OrderKey.getSeckillOrderByUidGid, "" + user.getId() + "_" + goods.getId(), orderInfo);
 
         return orderInfo;
     }

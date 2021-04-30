@@ -3,6 +3,7 @@ package com.lhy.seckill.order.service;
 import com.lhy.seckill.goods.entity.SkGoodsEntity;
 import com.lhy.seckill.order.entity.SkOrderEntity;
 import com.lhy.seckill.user.entity.SkUserEntity;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author lihengyu
@@ -18,5 +19,6 @@ public interface OrderService {
     * @Param [user, goods]
     * @return com.lhy.seckill.order.entity.SkOrderEntity
     **/
-    SkOrderEntity createOrder(SkUserEntity user, SkGoodsEntity goods);
+    @Transactional
+    SkOrderEntity createOrder(SkUserEntity user, SkGoodsEntity goods, Integer num);
 }

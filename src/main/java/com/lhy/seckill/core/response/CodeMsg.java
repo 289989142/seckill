@@ -1,5 +1,7 @@
 package com.lhy.seckill.core.response;
 
+import com.github.mustachejava.Code;
+
 /**
  * @author Created by lihengyu on 2021/4/10
  */
@@ -24,6 +26,7 @@ public class CodeMsg {
     public static CodeMsg ACCOUNT_HAS_REGISTERED =  new CodeMsg(500217, "账户已经注册");
 
     //商品模块 5003XX
+    public static CodeMsg NOT_ENOUGH_STOCK = new CodeMsg(50030,"商品库存不足");
 
     //订单模块 5004XX
     public static CodeMsg ORDER_NOT_EXIST = new CodeMsg(500400, "订单不存在");

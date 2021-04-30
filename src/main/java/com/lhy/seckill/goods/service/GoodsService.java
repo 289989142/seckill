@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import com.lhy.seckill.core.base.MyPage;
+import com.lhy.seckill.core.exception.GlobalException;
+import com.lhy.seckill.core.response.CodeMsg;
 import com.lhy.seckill.goods.entity.ElasticSearchGoodsEntity;
 import com.lhy.seckill.goods.mapper.GoodsMapper;
 import com.lhy.seckill.goods.entity.SkGoodsEntity;
@@ -138,6 +140,20 @@ public class GoodsService {
         return goodsMapper.updateById(entity);
     }
 
+    /** @Description 商品减库存
+    * @Param [id, num]
+    * @return java.lang.Boolean
+    **/
+    public Boolean reduceStock(Integer id,Integer num){
+        SkGoodsEntity skGoodsEntity = goodsMapper.selectById(id);
+        Integer stock = skGoodsEntity.getStock();
+        if (stock-num<0){
+            throw new GlobalException(CodeMsg.NOT_ENOUGH_STOCK);
+        }
+        skGoodsEntity.setStock(stock-num);
+        int update = updateGoods(skGoodsEntity);
+        return update > 0;
+    }
 
     private ElasticSearchGoodsEntity convert(SkGoodsEntity entity){
         ElasticSearchGoodsEntity elasticSearchGoodsEntity = new ElasticSearchGoodsEntity();
