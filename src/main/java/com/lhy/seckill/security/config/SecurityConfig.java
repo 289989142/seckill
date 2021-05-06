@@ -1,6 +1,7 @@
 package com.lhy.seckill.security.config;
 
 import com.lhy.seckill.security.handler.MyAccessDeniedHandler;
+import com.lhy.seckill.security.handler.MyAuthenticationSuccessHandler;
 import com.lhy.seckill.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -57,17 +58,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //自定义登陆页面
                 .loginPage("/toLogin")
                 //登陆成功后跳转页面 必须是post请求
-                .successForwardUrl("/")
+//                .successForwardUrl("/")
                 //登陆失败后跳转页面 post
-                .failureForwardUrl("/loginFail");
-             /*   .successHandler(new MyAuthenticationSuccessHandler("/main.html"))
-                .failureHandler(new MyAuthenticationFailureHandler("/myerror.html"));*/
-        //退出登录
+                .failureForwardUrl("/loginFail")
+                .successHandler(new MyAuthenticationSuccessHandler("/"));
+        /*      .failureHandler(new MyAuthenticationFailureHandler("/myerror.html"));*/
+        //退出登录 好像自动清除session
         http.logout()
                 //自定义退出url
-                //.logoutUrl("/user/logout")
+                .logoutUrl("/logout")
                 //退出登录跳转页面
-                .logoutSuccessUrl("/login.html");
+                .logoutSuccessUrl("/toLogin");
 
         http.authorizeRequests()
 //                .antMatchers("/toLogin").permitAll()
@@ -106,7 +107,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PersistentTokenRepository getPersistentTokenRepository(){
         JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
         jdbcTokenRepository.setDataSource(dataSource);
-        //自动建表,第一次启动的时候需要,第二次启动要注释掉
+        //自动建表,第一次启动的时候需要,有表了要注释掉
         // jdbcTokenRepository.setCreateTableOnStartup(true);
         return jdbcTokenRepository;
     }

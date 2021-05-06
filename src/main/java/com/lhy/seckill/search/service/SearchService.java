@@ -7,7 +7,7 @@ import com.lhy.seckill.goods.entity.ElasticSearchGoodsEntity;
 import com.lhy.seckill.goods.entity.SkGoodsEntity;
 import com.lhy.seckill.goods.mapper.GoodsMapper;
 import com.lhy.seckill.goods.mapper.GoodsRepository;
-import com.lhy.seckill.goods.service.param.GoodsSearchParam;
+import com.lhy.seckill.search.controller.param.GoodsSearchParam;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;

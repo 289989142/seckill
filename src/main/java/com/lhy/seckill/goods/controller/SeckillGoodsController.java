@@ -19,6 +19,19 @@ public class SeckillGoodsController {
     @Autowired
     SeckillGoodsService seckillGoodsService;
 
+    /** @Description 秒杀商品列表
+    * @Param [model, pageNum, pageSize]
+    * @return java.lang.String
+    **/
+    @GetMapping("/seckill/list")
+    public String toSeckillGoodsList(Model model,
+                                     @RequestParam(required = false,defaultValue = "0",value = "pageNum") int pageNum,
+                                     @RequestParam(required = false,defaultValue = "12",value = "pageSize") int pageSize) {
+        IPage<SkGoodsSeckillEntity> goodsPage = seckillGoodsService.getGoodsPage(pageNum, pageSize);
+        model.addAttribute("pageInfo",goodsPage);
+        return "seckillList";
+    }
+
     /** @Description 带数据的页面跳转
     * @Param [model, pageNum, pageSize]
     * @return java.lang.String

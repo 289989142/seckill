@@ -4,11 +4,13 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.lhy.seckill.core.base.MyPage;
 import com.lhy.seckill.goods.entity.SkGoodsEntity;
 import com.lhy.seckill.goods.service.GoodsService;
-import com.lhy.seckill.goods.service.param.GoodsSearchParam;
+import com.lhy.seckill.search.controller.param.GoodsSearchParam;
+import com.lhy.seckill.search.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -20,7 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class SearchController {
 
     @Autowired
-    GoodsService goodsService;
+    private GoodsService goodsService;
+    @Autowired
+    private SearchService searchService;
 
     /** @Description 携带数据跳转到搜索页面
     * @Param [model, pageNum, pageSize]
@@ -39,9 +43,9 @@ public class SearchController {
     * @Param [model, param]
     * @return java.lang.String
     **/
-    @GetMapping("/search")
+    @RequestMapping("/search")
     public String search(Model model, GoodsSearchParam param){
-        MyPage<SkGoodsEntity> result = goodsService.search(param);
+        MyPage<SkGoodsEntity> result = searchService.search(param);
         result.judgePageBoundary();
         model.addAttribute("pageInfo",result);
         return "search :: goodsList";

@@ -45,7 +45,7 @@
                 <input type="hidden" name="page" >
                 <div class="inline fields">
                     <div class="field">
-                        <input type="text" name="title" placeholder="标题">
+                        <input type="text" name="goodsName" placeholder="商品名">
                     </div>
                     <div class="field">
                         <button type="button" id="search-btn" class="ui teal basic button"><i class="search icon"></i>搜索</button>
@@ -165,13 +165,10 @@
         $("[name='page']").val(0);
         loaddata();
     });
-    //TODO 后台管理页面的mysql搜索完成一下
+
     function loaddata() {
-        $("#table-container").load(/*[[@{/admin/blogs/search}]]*/"/admin/blogs/search",{
-            title : $("[name='title']").val(),
-            typeId : $("[name='typeId']").val(),
-            recommend: $("[name='recommend']").prop("checked"),
-            page : $("[name='page']").val()
+        $("#table-container").load(/*[[@{/admin/goods/list}]]*/"/admin/goods/list",{
+            goodsName: $("[name='goodsName']").val()
         });
     }
 

@@ -1,4 +1,4 @@
-package com.lhy.seckill.security.controller;
+package com.lhy.seckill.user.controller;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.lhy.seckill.core.response.CodeMsg;

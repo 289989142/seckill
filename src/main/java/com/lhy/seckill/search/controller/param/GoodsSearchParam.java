@@ -1,4 +1,4 @@
-package com.lhy.seckill.goods.service.param;
+package com.lhy.seckill.search.controller.param;
 
 import lombok.Data;
 

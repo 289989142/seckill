@@ -1,6 +1,5 @@
-package com.lhy.seckill.security.controller;
+package com.lhy.seckill.user.controller;
 
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class Login {
+    //TODO 秒杀商品列表  秒杀商品详情
+    //TODO 用户管理后台
+    //TODO 后台管理的sql搜索功能
+    //TODO 优化 图片上传 es同步mysql
 
     @RequestMapping("toMain")
     public String toMain(){
@@ -26,11 +29,6 @@ public class Login {
         System.out.println("执行登陆失败");
         model.addAttribute("message","登陆失败请重试");
         return "login";
-    }
-
-    @RequestMapping("demo")
-    private String toDemo(){
-        return "demo";
     }
 
     @RequestMapping("toLogin")
