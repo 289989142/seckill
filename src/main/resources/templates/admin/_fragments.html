@@ -22,7 +22,7 @@
             <a href="#" th:href="@{/admin/goods/list}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>普通商品</a>
             <a href="#" th:href="@{/admin/seckillGoods}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i>秒杀商品</a>
             <a href="#" th:href="@{/admin/userManager}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>用户管理</a>
-            <a href="#" th:href="@{/goodsList}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="clone icon"></i>前台页面</a>
+            <a href="#" th:href="@{/}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="clone icon"></i>前台页面</a>
 
 
             <div class="right m-item m-mobile-hide menu" th:if="${session.username}!=null">

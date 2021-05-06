@@ -26,29 +26,28 @@ public class GoodsController {
      * @Param [model, pageNum, pageSize]
      * @return java.lang.String
      **/
-    @RequestMapping("/admin/goods/list")
+    @GetMapping("/admin/goods/list")
     public String adminGoods(Model model,
                              @RequestParam(required = false,defaultValue = "0",value = "pageNum") int pageNum,
                              @RequestParam(required = false,defaultValue = "10",value = "pageSize") int pageSize) {
         IPage<SkGoodsEntity> goodsPage = goodsService.getGoodsPage(pageNum, pageSize);
         model.addAttribute("pageInfo",goodsPage);
-        return "/admin/goods";
+        return "admin/goods";
     }
 
     /** @Description 后台like查询商品名
     * @Param [model, goodsName, pageNum, pageSize]
     * @return java.lang.String
     **/
-    @RequestMapping("/admin/goods/list/{goodsName}")
-    public String adminSelectGoods(Model model,@PathVariable("goodsName") String goodsName,
+    @PostMapping("/admin/goods/list")
+    public String adminSelectGoods(Model model,String goodsName,
                              @RequestParam(required = false,defaultValue = "0",value = "pageNum") int pageNum,
                              @RequestParam(required = false,defaultValue = "10",value = "pageSize") int pageSize) {
 
         IPage<SkGoodsEntity> goodsPage = goodsService.getGoodsPage(pageNum, pageSize,goodsName);
         model.addAttribute("pageInfo",goodsPage);
-        return "/admin/goods";
+        return "admin/goods :: goodsList";
     }
-    //TODO 返回可能需要修改 请求url可能需要修改 ↑
 
     /**
      * @Description //去新增商品页面
@@ -112,7 +111,7 @@ public class GoodsController {
     * @Param [model, pageNum, pageSize]
     * @return java.lang.String
     **/
-    @GetMapping({"/goodsList", "/"})
+    @GetMapping({"/goods/list", "/"})
     public String toGoodsList(Model model,
                               @RequestParam(required = false,defaultValue = "0",value = "pageNum") int pageNum,
                               @RequestParam(required = false,defaultValue = "12",value = "pageSize") int pageSize) {

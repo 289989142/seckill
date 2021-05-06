@@ -1,8 +1,10 @@
 package com.lhy.seckill.goods.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.lhy.seckill.goods.entity.SkGoodsEntity;
 import com.lhy.seckill.goods.entity.SkGoodsSeckillEntity;
 import com.lhy.seckill.goods.service.SeckillGoodsService;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +32,20 @@ public class SeckillGoodsController {
         IPage<SkGoodsSeckillEntity> goodsPage = seckillGoodsService.getGoodsPage(pageNum, pageSize);
         model.addAttribute("pageInfo",goodsPage);
         return "seckillList";
+    }
+
+    /** @Description 后台like搜索
+    * @Param [model, goodsName, pageNum, pageSize]
+    * @return java.lang.String
+    **/
+    @PostMapping("/admin/seckill/list")
+    public String adminSelectGoods(Model model,String goodsName,
+                                   @RequestParam(required = false,defaultValue = "0",value = "pageNum") int pageNum,
+                                   @RequestParam(required = false,defaultValue = "10",value = "pageSize") int pageSize) {
+
+        IPage<SkGoodsSeckillEntity> goodsPage = seckillGoodsService.getGoodsPage(pageNum, pageSize,goodsName);
+        model.addAttribute("pageInfo",goodsPage);
+        return "admin/seckillGoods :: goodsList";
     }
 
     /** @Description 带数据的页面跳转
@@ -64,12 +80,23 @@ public class SeckillGoodsController {
         return "redirect:/admin/seckillGoods";
     }
 
+    /** @Description 根据id获取商品详情
+     * @Param [id, model]
+     * @return java.lang.String
+     **/
+    @GetMapping("seckillGoods/{id}")
+    public String goodsDetail(@PathVariable("id") Integer id , Model model){
+        SkGoodsSeckillEntity goods = seckillGoodsService.getGoods(id);
+        model.addAttribute("goods",goods);
+        return "seckillGoodsDetail";
+    }
+
     /** @Description 秒杀商品更新页面 携带数据
     * @Param [id, model]
     * @return java.lang.String
     **/
     @GetMapping("/admin/seckillGoods/{id}/toInput")
-    public String seckillEditInput(@PathVariable Long id, Model model) {
+    public String seckillEditInput(@PathVariable Integer id, Model model) {
         SkGoodsSeckillEntity goods = seckillGoodsService.getGoods(id);
         model.addAttribute("goods", goods);
         model.addAttribute("imgDirectory",goods.getPicture());
@@ -92,7 +119,7 @@ public class SeckillGoodsController {
     * @return java.lang.String
     **/
     @GetMapping("/admin/seckillGoods/{id}/delete")
-    public String seckillGoodsDelete(@PathVariable Long id, RedirectAttributes attributes) {
+    public String seckillGoodsDelete(@PathVariable Integer id, RedirectAttributes attributes) {
         seckillGoodsService.deleteGoods(id);
         attributes.addFlashAttribute("message", "删除成功");
         return "redirect:/admin/seckillGoods";

@@ -10,7 +10,7 @@
 </head>
 <body>
 <!--导航-->
-<nav class="ui inverted attached segment m-padded-tb-minier" th:replace="_fragments :: nav(1)">
+<nav class="ui inverted attached segment m-padded-tb-minier" th:replace="_fragments :: nav(3)">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui teal header item">秒杀商城</h2>
@@ -53,29 +53,50 @@
                     <div>
                         价格:
                         <div class="ui input ">
-                            <input readonly th:value="${goods.price}" name="price" id="goodsPrice" type="text" placeholder="请输入..">
+                            <input readonly th:value="${goods.price}" name="price" id="goodsPrice" type="text" placeholder="...">
+                        </div>
+                    </div>
+                    <div>
+                        秒杀价:
+                        <div class="ui input ">
+                            <input readonly th:value="${goods.seckillPrice}" name="price" id="goodsSeckillPrice" type="text" placeholder="...">
                         </div>
                     </div>
                     <div>
                         类型:
                         <div class="ui input ">
-                            <input readonly th:value="${goods.type}"  name="type" id="goodsType" type="text" placeholder="请输入..">
+                            <input readonly th:value="${goods.type}"  name="type" id="goodsType" type="text" placeholder="...">
                         </div>
                     </div>
                     <div>
                         描述:
                         <div class="ui input ">
-                            <input readonly th:value="${goods.description}"  name="description" id="goodsDesc" type="text" placeholder="请输入..">
+                            <input readonly th:value="${goods.description}"  name="description" id="goodsDesc" type="text" placeholder="...">
                         </div>
                     </div>
                     <div class="ui grid">
                         <div class="eight wide column">
                             库存:
                             <div class="ui input ">
-                                <input readonly th:value="${goods.stock}" name="stock" id="goodsStock" type="text" placeholder="请输入..">
+                                <input readonly th:value="${goods.stock}" name="stock" id="goodsStock" type="text" placeholder="...">
                             </div>
                         </div>
                     </div>
+                    <div class="ui calendar start_time" >
+                        <label>秒杀开始：</label>
+                        <div class="ui input right icon">
+                            <i class="calendar icon"></i>
+                            <input readonly th:value="${goods.seckillStart}" type="text" placeholder="选择开始时间" value="" name="seckillStart" id = "seckillStart">
+                        </div>
+                    </div>
+                    <div class="ui calendar end_time">
+                        <label>秒杀结束：</label>
+                        <div class="ui input right icon">
+                            <i class="calendar icon"></i>
+                            <input readonly th:value="${goods.seckillEnd}" type="text"  placeholder="选择结束时间" value="" name="seckillEnd" id="seckillEnd">
+                        </div>
+                    </div>
+
 
                     <div class="ui grid">
                         <div class="eight wide column">

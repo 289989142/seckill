@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <title>秒杀商品</title>
@@ -27,59 +27,19 @@
     </div>
 </nav>
 <div class="m-container m-padded-tb-big">
-<!--先填写商品信息再上传图片-->
+    <!--先填写商品信息再上传图片-->
     <!--https://www.cnblogs.com/zhainan-blog/p/11169163.html-->
     <div class="ui divider"></div>
     <div class="ui  segment">
         <div class="ui grid">
-            <div class="ui horizontal list">
+            <div class="ui four wide column" th:each="goods : ${pageInfo.records}">
                 <div class="item m-margin-lr m-margin-tb-large m-align-top m-padded-no" style="margin-left: 1em !important;">
                     <div class="m-goods-div">
-                        <img class="ui image m-goods-img" src="../static/picture/goods.png">
+                        <img class="ui image m-goods-img" src="../static/picture/goods.png" th:src="@{ ${goods.picture} }">
                         <div class="description m-text-word-wrap">
-                            <div class="header">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
-                            <div class="header"><span class=" m-text-seckill">0.01￥</span> <span class="m-text-midLine">22.98￥</span></div>
-                            asdasddddddddddddddddd
-                        </div>
-                    </div>
-                </div>
-                <div class="item m-margin-lr m-margin-tb-large m-align-top m-padded-no">
-                    <div class="m-goods-div">
-                        <img class="ui image m-goods-img" src="../static/picture/goods.png">
-                        <div class="description m-text-word-wrap">
-                            <div class="header">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
-                            <div class="header">22.98￥</div>
-                            asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-                        </div>
-                    </div>
-                </div>
-                <div class="item m-margin-lr m-margin-tb-large m-align-top m-padded-no">
-                    <div class="m-goods-div">
-                        <img class="ui image m-goods-img" src="../static/picture/goods.png">
-                        <div class="description m-text-word-wrap">
-                            <div class="header">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
-                            <div class="header">22.98￥</div>
-                            asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-                        </div>
-                    </div>
-                </div>
-                <div class="item m-margin-lr m-margin-tb-large m-align-top m-padded-no">
-                    <div class="m-goods-div">
-                        <img class="ui image m-goods-img" src="../static/picture/goods.png">
-                        <div class="description m-text-word-wrap">
-                            <div class="header">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
-                            <div class="header">22.98￥</div>
-                            asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-                        </div>
-                    </div>
-                </div>
-                <div class="item m-margin-lr m-margin-tb-large m-align-top m-padded-no">
-                    <div class="m-goods-div">
-                        <img class="ui image m-goods-img" src="../static/picture/goods.png">
-                        <div class="description m-text-word-wrap">
-                            <div class="header">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
-                            <div class="header">22.98￥</div>
-                            asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+                            <a href="#" th:href="@{/seckillGoods/{id}(id=${goods.id})}" target="_blank" class="m-black m-title-font header" th:text="${goods.getName()}">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</a>
+                            <div class="header" th:text="${goods.getPrice()}">22.98￥</div>
+                            <div th:text="${goods.getDescription()}">asdasddddddddddddddddd</div>
                         </div>
                     </div>
                 </div>
@@ -87,12 +47,27 @@
         </div>
 
     </div>
-</div>
+    <!--分页-->
+    <div class="ui bottom attached segment m-opacity stackable grid">
+        <div class="three wide column" align="center">
+            <a class="ui teal basic button mini item " th:href="@{'/seckill/list?pageNum='+${pageInfo.current -1}}" th:if="${pageInfo.current>1}">上一页</a>
+        </div>
 
+        <div class="ten wide column" align="center">
+            <p> <span th:text="${pageInfo.current}"></span> / <span th:text="${pageInfo.pages}"></span> </p>
+        </div>
+
+        <div class="three wide column" align="center">
+            <a class="ui teal basic button mini item" th:href="@{'/seckill/list?pageNum='+${pageInfo.current +1}}" th:if="${pageInfo.current<pageInfo.pages}">下一页</a>
+        </div>
+    </div>
+</div>
+</body>
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
 <script>
-
+    $('.ui.dropdown').dropdown({
+        on : 'hover'
+    });
 </script>
-</body>
 </html>

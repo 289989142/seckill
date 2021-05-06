@@ -46,7 +46,7 @@
                 <input type="hidden" name="page" >
                 <div class="inline fields">
                     <div class="field">
-                        <input type="text" name="title" placeholder="名称">
+                        <input type="text" name="goodsName" placeholder="商品名">
                     </div>
                     <div class="field">
                         <button type="button" id="search-btn" class="ui teal basic button"><i class="search icon"></i>搜索</button>
@@ -167,6 +167,11 @@
         loaddata();
     });
 
+    function loaddata() {
+        $("#table-container").load(/*[[@{/admin/seckill/list}]]*/"/admin/seckill/list",{
+            goodsName: $("[name='goodsName']").val()
+        });
+    }
 
 </script>
 </body>
