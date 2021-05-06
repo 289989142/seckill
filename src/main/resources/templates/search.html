@@ -44,8 +44,8 @@
                 <div class="item m-margin-lr m-margin-tb-large m-align-top m-padded-no" style="margin-left: 1em !important;">
                     <div class="m-goods-div">
                         <img class="ui image m-goods-img" src="../static/picture/goods.png" th:src="@{ ${goods.picture} }">
-                        <div class="description m-text-word-wrap">
-                            <div class="header" th:text="${goods.getName()}">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+                        <a class="description m-text-word-wrap">
+                            <a href="#" th:href="@{/goods/{id}(id=${goods.id})}" target="_blank" class="m-black m-title-font header" th:text="${goods.getName()}">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</a>
                             <div class="header" th:text="${goods.getPrice()}">22.98￥</div>
                             <div th:text="${goods.getDescription()}">asdasddddddddddddddddd</div>
                         </div>

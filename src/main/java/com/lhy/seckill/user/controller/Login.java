@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class Login {
-    //TODO 搜索页面添加点击查看详情
     //TODO 用户管理后台
     //TODO footer优化一下
     //TODO 优化 图片上传 es同步mysql
