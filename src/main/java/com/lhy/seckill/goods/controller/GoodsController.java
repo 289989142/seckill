@@ -26,7 +26,7 @@ public class GoodsController {
 
     private static final String REDIRECT_TO_ADMIN_GOODS = "redirect:/admin/goods/list";
     private static final String SESSION_USERNAME = "username";
-    //TODO 修改 只有admin才能进管理后台
+
     /**
      * @Description // 普通商品页面跳转展示
      * @Param [model, pageNum, pageSize]
@@ -70,7 +70,7 @@ public class GoodsController {
      * @Param
      * @return
      **/
-    @PostMapping("/addGoods")
+    @PostMapping("/admin/addGoods")
     public String addGoods(SkGoodsEntity entity){
         goodsService.addGoods(entity);
         return REDIRECT_TO_ADMIN_GOODS;
@@ -132,6 +132,7 @@ public class GoodsController {
     * @return void
     **/
     private void setSession(HttpSession session){
+
         if(null==session.getAttribute(SESSION_USERNAME) || "anonymousUser".equals(session.getAttribute(SESSION_USERNAME))){
             String name = SecurityContextHolder.getContext().getAuthentication().getName();
             //springSecurity默认的值

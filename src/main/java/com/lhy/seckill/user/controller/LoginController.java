@@ -13,15 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class LoginController {
-    //TODO 用户管理后台
+    //TODO 订单前端搞一下
+    //TODO 读懂秒杀流程 应用在本系统中
+    //TODO 订单中心以及秒杀业务
+    //TODO 完善用户管理后台
     //TODO footer优化一下
     //TODO 优化 图片上传 es同步mysql
-
-    @RequestMapping("toMain")
-    public String toMain(){
-        System.out.println("执行登陆成功");
-        return "main";
-    }
 
     @RequestMapping("loginFail")
     public String loginFail(Model model){

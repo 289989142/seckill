@@ -1,18 +1,16 @@
 package com.lhy.seckill.security.service;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.lhy.seckill.security.entity.UserDetailImpl;
 import com.lhy.seckill.user.entity.SkUserEntity;
 import com.lhy.seckill.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +24,6 @@ import java.util.List;
 @Service
 @Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService {
-    @Autowired
-    private PasswordEncoder pw;
-
     @Autowired
     UserService userService;
 
@@ -54,6 +49,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         log.info(account+"已登录，角色："+authorities);
 
-        return new User(user.getAccount(),user.getPassword(), authorities);
+        return new UserDetailImpl(user.getId(),user.getNickname(),user.getAvatar(), user.getAccount(),user.getPassword(), authorities);
     }
 }
