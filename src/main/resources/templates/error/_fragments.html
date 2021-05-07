@@ -4,7 +4,7 @@
 <head th:fragment="head(title)">
     <meta charset="UTF-8">
 
-    <title>后台管理</title>
+    <title th:replace="${title}">秒杀商城</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
     <link rel="stylesheet" href="../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}">
@@ -19,11 +19,11 @@
     <div class="ui container">
         <div class="ui inverted secondary stackable menu ">
             <h2 class="ui teal header item">秒杀商城</h2>
-            <a href="#" th:href="@{/admin/goods/list}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>普通商品</a>
-            <a href="#" th:href="@{/admin/seckill/list}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="idea icon"></i>秒杀商品</a>
-            <a href="#" th:href="@{/admin/user/list}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>用户管理</a>
-            <a href="#" th:href="@{/}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="clone icon"></i>前台页面</a>
-
+            <a href="#" th:href="@{/goods/list}" th:classappend="${n==1} ? 'active'" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
+            <a href="#" th:href="@{/toSearchCenter}" th:classappend="${n==2} ? 'active'" class="m-item item m-mobile-hide"><i class="idea icon"></i>搜索</a>
+            <a href="#" th:href="@{/seckill/list}" th:classappend="${n==3} ? 'active'" class="m-item item m-mobile-hide"><i class="tags icon"></i>秒杀</a>
+            <a href="#" th:href="@{/order/list}" th:classappend="${n==4} ? 'active'" class="m-item item m-mobile-hide"><i class="clone icon"></i>订单</a>
+            <a href="#" th:href="@{/admin/goods/list}" th:classappend="${n==5} ? 'active'" class="m-item item m-mobile-hide"><i class="info icon"></i>卖家中心</a>
 
             <div class="right m-item m-mobile-hide menu" th:if="${session.username}!=null">
                 <div class="ui dropdown item">
@@ -33,19 +33,15 @@
                     </div>
                     <i class="dropdown icon"></i>
                     <div class="menu">
-<!--                     TODO 尝试在这里获取用户id 如果不行那就在后台用session获取-->
-                        <a href="#" th:href="@{/user/input}" class="item">修改信息</a>
-                    </div>
-                    <div class="menu">
                         <a href="#" th:href="@{/logout}" class="item">注销</a>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
-
-
+    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
 </nav>
 
 
@@ -57,7 +53,12 @@
                 <img src="../static/images/404.png" th:src="@{/images/wx.jpg}" class="ui rounded image" style="width:110px">
             </div>
             <div class="three wide column" >
-
+                <h4 class="ui inverted header m-opacity-mini">最新博客</h4>
+                <div id="newblog-container">
+                    <div class="ui inverted link list" th:fragment="newblogList">
+                        <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item m-text-thin" th:each="blog : ${newblogs}" th:text="${blog.title}">最新文章</a>
+                    </div>
+                </div>
 
             </div>
             <div class="three wide column">
@@ -85,6 +86,14 @@
     <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
     <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
     <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <!--footer的最新推荐-->
+    <script>
+        $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
+
+        $('.ui.dropdown').dropdown({
+            on : 'hover'
+        });
+    </script>
 </th:block>
 </body>
 </html>

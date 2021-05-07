@@ -1,10 +1,8 @@
 package com.lhy.seckill.goods.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.lhy.seckill.goods.entity.SkGoodsEntity;
 import com.lhy.seckill.goods.entity.SkGoodsSeckillEntity;
 import com.lhy.seckill.goods.service.SeckillGoodsService;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class SeckillGoodsController {
     @Autowired
     SeckillGoodsService seckillGoodsService;
+
+    private static final String REDIRECT_TO_ADMIN_SECKILL_GOODS = "redirect:/admin/seckill/list";
 
     /** @Description 秒杀商品列表
     * @Param [model, pageNum, pageSize]
@@ -52,7 +52,7 @@ public class SeckillGoodsController {
     * @Param [model, pageNum, pageSize]
     * @return java.lang.String
     **/
-    @GetMapping("/admin/seckillGoods")
+    @GetMapping("/admin/seckill/list")
     public String adminSeckillGoods(Model model,
                                     @RequestParam(required = false,defaultValue = "0",value = "pageNum") int pageNum,
                                     @RequestParam(required = false,defaultValue = "10",value = "pageSize") int pageSize) {
@@ -77,7 +77,7 @@ public class SeckillGoodsController {
     @PostMapping("/admin/addSeckillGoods")
     public String addSeckillGoods(SkGoodsSeckillEntity entity){
         seckillGoodsService.addGoods(entity);
-        return "redirect:/admin/seckillGoods";
+        return REDIRECT_TO_ADMIN_SECKILL_GOODS;
     }
 
     /** @Description 根据id获取商品详情
@@ -111,7 +111,7 @@ public class SeckillGoodsController {
     @PostMapping("/admin/seckillGoods/update")
     public String updateSKGoods(SkGoodsSeckillEntity entity) {
         seckillGoodsService.updateGoods(entity);
-        return "redirect:/admin/seckillGoods";
+        return REDIRECT_TO_ADMIN_SECKILL_GOODS;
     }
 
     /** @Description 删除普通商品
@@ -122,7 +122,7 @@ public class SeckillGoodsController {
     public String seckillGoodsDelete(@PathVariable Integer id, RedirectAttributes attributes) {
         seckillGoodsService.deleteGoods(id);
         attributes.addFlashAttribute("message", "删除成功");
-        return "redirect:/admin/seckillGoods";
+        return REDIRECT_TO_ADMIN_SECKILL_GOODS;
     }
 
 }

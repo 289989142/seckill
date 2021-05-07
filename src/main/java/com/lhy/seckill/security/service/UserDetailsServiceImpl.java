@@ -52,7 +52,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             }
         }
 
-        System.out.println(account+"已登录，角色："+authorities);
+        log.info(account+"已登录，角色："+authorities);
 
         return new User(user.getAccount(),user.getPassword(), authorities);
     }

@@ -23,7 +23,7 @@
                     <div class="ui dropdown item">
                         <div class="text">
                             <img src="../../static/images/avatarC.jpg" alt="" class="ui avatar image">
-                            李恒宇
+                            游客
                         </div>
                         <i class="dropdown icon"></i>
                         <div class="menu">
@@ -89,7 +89,7 @@
                         <th colspan="7">
                             <div class="ui inverted divided stackable grid">
                                 <div class="three wide column" align="center">
-                                    <a class="ui teal basic button mini item " th:href="@{'/admin/toGoods?pageNum='+${pageInfo.current -1}}" th:if="${pageInfo.current>1}">上一页</a>
+                                    <a class="ui teal basic button mini item " th:href="@{'/admin/goods/list?pageNum='+${pageInfo.current -1}}" th:if="${pageInfo.current>1}">上一页</a>
                                 </div>
 
                                 <div class="ten wide column" align="center">
@@ -97,7 +97,7 @@
                                 </div>
 
                                 <div class="three wide column" align="center">
-                                    <a class="ui teal basic button mini item " th:href="@{'/admin/toGoods?pageNum='+${pageInfo.current +1}}" th:if="${pageInfo.current<pageInfo.pages}">下一页</a>
+                                    <a class="ui teal basic button mini item " th:href="@{'/admin/goods/list?pageNum='+${pageInfo.current +1}}" th:if="${pageInfo.current<pageInfo.pages}">下一页</a>
                                 </div>
                             </div>
                             <div align="center">
@@ -119,14 +119,7 @@
 
         </div>
     </div>
-<!--&lt;!&ndash;底部栏&ndash;&gt;-->
-<!--    <footer th:replace="admin/_fragments :: fotter" class="ui inverted vertical segment m-padded-tb-massive">-->
-<!--        <div class="ui center aligned container">-->
-<!--            <div class="ui inverted section divider"></div>-->
-<!--            <p class="m-text-thin  m-opacity-tiny">Copyright © 2020 凉生 Designed by lhy</p>-->
-<!--        </div>-->
 
-<!--    </footer>-->
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
 <!--footer的最新推荐-->

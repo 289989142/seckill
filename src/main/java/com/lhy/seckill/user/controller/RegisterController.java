@@ -10,8 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -28,7 +26,7 @@ import java.io.ByteArrayOutputStream;
  * @Version 1.0
  */
 @Controller
-public class Register {
+public class RegisterController {
 
 
     @Autowired
@@ -37,6 +35,9 @@ public class Register {
     private MailService mailService;
     @Autowired
     private DefaultKaptcha captchaProducer;
+
+    private static final String MAIL_VERIFY_SESSION_KEY = "mailVerify";
+    private static final String VERIFY_CODE_SESSION_KEY = "verifyCode";
     /**
     * @Description // 跳转到注册页面
     * @Param
@@ -52,25 +53,24 @@ public class Register {
     public String sendEmail(String email,HttpServletRequest request){
         int random = (int)(Math.random()*(999999-100000)+100000);
         mailService.sendSimpleMail(email,"您正在注册我们的网站","您的验证码为:"+random);
-        request.getSession().setAttribute("mailVerify",String.valueOf(random));
-        System.out.println(String.valueOf(random));
+        request.getSession().setAttribute(MAIL_VERIFY_SESSION_KEY,String.valueOf(random));
         return "data: 邮件已经发送";
     }
 
 
     @RequestMapping("/register")
-    public String register(Model model,RedirectAttributes attributes, HttpServletRequest request, String mailVerify, String email, String password, String verifyCode){
+    public String register(Model model, HttpServletRequest request, String mailVerify, String email, String password, String verifyCode){
 
-        if (!imgvrifyControllerDefaultKaptcha(request,verifyCode)){
+        if (!imgVerifyControllerDefaultKaptcha(request,verifyCode)){
             model.addAttribute("message","图形验证码错误！请重试！");
             return "register";
         }
 
-        if (!(mailVerify).equals((String) request.getSession().getAttribute("mailVerify"))){
+        if (!(mailVerify).equals(request.getSession().getAttribute(MAIL_VERIFY_SESSION_KEY))){
             model.addAttribute("message","邮箱验证码错误！请重试！");
             return "register";
         }
-        //调用注册业务
+        //TODO 修改昵称 头像 角色
         int result = registerService.register(email, "测试", password, "测试", "guest");
 
         if (CodeMsg.ACCOUNT_HAS_REGISTERED.getCode() == result){
@@ -94,7 +94,7 @@ public class Register {
         try {
             //生产验证码字符串并保存到session中
             String createText = captchaProducer.createText();
-            httpServletRequest.getSession().setAttribute("verifyCode", createText);
+            httpServletRequest.getSession().setAttribute(VERIFY_CODE_SESSION_KEY, createText);
             //使用生产的验证码字符串返回一个BufferedImage对象并转为byte写入到byte数组中
             BufferedImage challenge = captchaProducer.createImage(createText);
             ImageIO.write(challenge, "jpg", jpegOutputStream);
@@ -109,23 +109,19 @@ public class Register {
         httpServletResponse.setHeader("Pragma", "no-cache");
         httpServletResponse.setDateHeader("Expires", 0);
         httpServletResponse.setContentType("image/jpeg");
-        ServletOutputStream responseOutputStream =
-                httpServletResponse.getOutputStream();
+        ServletOutputStream responseOutputStream = httpServletResponse.getOutputStream();
         responseOutputStream.write(captchaChallengeAsJpeg);
         responseOutputStream.flush();
         responseOutputStream.close();
     }
 
     /**
-     * 验证的方法
+     * 验证的方法imgVerifyControllerDefaultKaptcha
      * @return
      */
-    @RequestMapping("/imgvrifyControllerDefaultKaptcha")
-    public boolean imgvrifyControllerDefaultKaptcha(HttpServletRequest httpServletRequest,String parameter){
-        ModelAndView andView = new ModelAndView();
-        String captchaId = (String) httpServletRequest.getSession().getAttribute("verifyCode");
-        System.out.println("Session  verifyCode "+captchaId+" form verifyCode "+parameter);
-
+    @RequestMapping("/imgVerifyControllerDefaultKaptcha")
+    public boolean imgVerifyControllerDefaultKaptcha(HttpServletRequest httpServletRequest,String parameter){
+        String captchaId =String.valueOf(httpServletRequest.getSession().getAttribute(VERIFY_CODE_SESSION_KEY));
         if (!captchaId.equals(parameter)) {
             return false;
         } else {
