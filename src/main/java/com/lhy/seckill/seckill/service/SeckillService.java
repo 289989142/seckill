@@ -29,15 +29,14 @@ public class SeckillService {
 
     //保证这三个操作，减库存 下订单 写入秒杀订单是一个事物
     @Transactional
-    public SkOrderEntity seckill(SkUserEntity user,Integer goodsId){
+    public SkOrderEntity seckill(SkUserEntity user,SkGoodsEntity goodsVo){
         //减库存
-        boolean success = goodsService.reduceStock(goodsId,1);
+        boolean success = goodsService.reduceStock(goodsVo.getId(),1);
         if (success){
             //下订单 写入秒杀订单
-            //TODO 传一个price
-            return orderService.createOrder(user,, goodsId,1,1);
+            return orderService.createOrder(user,goodsVo.getPrice(), goodsVo.getId(),1,1);
         }else {
-            setGoodsOver(Long.valueOf(goodsId));
+            setGoodsOver(Long.valueOf(goodsVo.getId()));
             return null;
         }
     }

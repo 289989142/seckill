@@ -57,9 +57,10 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="blog,iterStat : ${pageInfo.list}">
+                            <!--TODO 实现订单list页 然后普通订单业务基本上就完成了-->
+                            <tr th:each="order,iterStat : ${pageInfo.records}">
                                 <td th:text="${iterStat.count}">1</td>
-                                <td th:text="${blog.title}">面包</td>
+                                <td th:text="${order.}">面包</td>
                                 <td th:text="${blog.getType().name}">待支付</td>
                                 <td th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm')}">2020-8-26</td>
                                 <td>

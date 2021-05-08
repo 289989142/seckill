@@ -1,14 +1,17 @@
 package com.lhy.seckill.order.controller;
 
-import com.lhy.seckill.goods.entity.SkGoodsEntity;
-import com.lhy.seckill.goods.entity.SkGoodsSeckillEntity;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lhy.seckill.goods.service.GoodsService;
+import com.lhy.seckill.order.controller.param.OrderQueryParam;
+import com.lhy.seckill.order.entity.SkOrderEntity;
 import com.lhy.seckill.order.service.OrderService;
 import com.lhy.seckill.security.entity.UserDetailImpl;
 import com.lhy.seckill.user.entity.SkUserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -44,6 +47,9 @@ public class OrderController {
 
     @PostMapping("order/seckill")
     public String createSeckillOrder(Integer goodsId,Double seckillPrice, @RequestParam(defaultValue = "1",value = "num") Integer num){
+        if ("anonymousUser".equals(SecurityContextHolder.getContext().getAuthentication().getName())){
+            return "redirect:/toLogin";
+        }
         //获取用户信息
         UserDetailImpl principal = (UserDetailImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         SkUserEntity user = new SkUserEntity(principal);
@@ -54,5 +60,24 @@ public class OrderController {
             return "库存不足.html";
         }
         return "createOrderSuccess";
+    }
+
+    @GetMapping("order/list")
+    public String orderList(Model model,
+                            @RequestParam(required = false,defaultValue = "0",value = "pageNum") long pageNum,
+                            @RequestParam(required = false,defaultValue = "10",value = "pageSize") long pageSize){
+        if ("anonymousUser".equals(SecurityContextHolder.getContext().getAuthentication().getName())){
+            return "redirect:/toLogin";
+        }
+        UserDetailImpl principal = (UserDetailImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        SkUserEntity user = new SkUserEntity(principal);
+        OrderQueryParam param = new OrderQueryParam();
+        param.setUserId(user.getId());
+        param.setPageNum(pageNum);
+        param.setPageSize(pageSize);
+
+        Page<SkOrderEntity> page = orderService.getOrderByUserId(param);
+        model.addAttribute("pageInfo",page);
+        return "orders";
     }
 }

@@ -1,15 +1,16 @@
 package com.lhy.seckill.order.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lhy.seckill.core.redis.OrderKey;
 import com.lhy.seckill.core.redis.RedisService;
-import com.lhy.seckill.goods.entity.SkGoodsEntity;
 import com.lhy.seckill.goods.service.GoodsService;
+import com.lhy.seckill.order.controller.param.OrderQueryParam;
 import com.lhy.seckill.order.entity.SkOrderEntity;
 import com.lhy.seckill.order.mapper.OrderMapper;
 import com.lhy.seckill.user.entity.SkUserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -34,8 +35,11 @@ public class OrderService{
     }
 
 
-    public SkOrderEntity getOrderById(Integer orderId) {
-        return orderMapper.getOrderById(orderId);
+    public Page<SkOrderEntity> getOrderByUserId(OrderQueryParam param) {
+        QueryWrapper<SkOrderEntity> wrapper = new QueryWrapper<>();
+        wrapper.eq("userId",param.getUserId());
+        Page<SkOrderEntity> page = new Page<>(param.getPageNum(),param.getPageSize());
+        return orderMapper.selectPage(page,wrapper);
     }
 
 
@@ -48,6 +52,7 @@ public class OrderService{
         orderInfo.setUserId(user.getId());
         orderInfo.setIsSeckill(isSeckill);
         orderInfo.setLastTime(new Date());
+        orderInfo.setPrice(price);
         orderMapper.insert(orderInfo);
         //多传一个price过来
         redisService.set(OrderKey.getSeckillOrderByUidGid, "" + user.getId() + "_" + goodsId, orderInfo);
