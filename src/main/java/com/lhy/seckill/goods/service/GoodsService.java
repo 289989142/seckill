@@ -105,9 +105,12 @@ public class GoodsService {
     private ElasticSearchGoodsEntity convert(SkGoodsEntity entity){
         ElasticSearchGoodsEntity elasticSearchGoodsEntity = new ElasticSearchGoodsEntity();
         BeanUtils.copyProperties(entity,elasticSearchGoodsEntity);
-        elasticSearchGoodsEntity.setCreateTime(entity.getCreateTime().toLocalDate());
-        elasticSearchGoodsEntity.setLastTime(entity.getLastTime().toLocalDate());
-
+        if (null != entity.getCreateTime()){
+            elasticSearchGoodsEntity.setCreateTime(entity.getCreateTime().toLocalDate());
+        }
+        if(null != entity.getLastTime()){
+            elasticSearchGoodsEntity.setLastTime(entity.getLastTime().toLocalDate());
+        }
         return elasticSearchGoodsEntity;
     }
 

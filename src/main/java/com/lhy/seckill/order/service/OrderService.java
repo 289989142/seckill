@@ -1,6 +1,7 @@
 package com.lhy.seckill.order.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lhy.seckill.core.redis.OrderKey;
 import com.lhy.seckill.core.redis.RedisService;
@@ -35,9 +36,9 @@ public class OrderService{
     }
 
 
-    public Page<SkOrderEntity> getOrderByUserId(OrderQueryParam param) {
+    public IPage<SkOrderEntity> getOrderByUserId(OrderQueryParam param) {
         QueryWrapper<SkOrderEntity> wrapper = new QueryWrapper<>();
-        wrapper.eq("userId",param.getUserId());
+        wrapper.eq("user_id",param.getUserId());
         Page<SkOrderEntity> page = new Page<>(param.getPageNum(),param.getPageSize());
         return orderMapper.selectPage(page,wrapper);
     }

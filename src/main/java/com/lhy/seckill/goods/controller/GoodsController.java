@@ -95,7 +95,7 @@ public class GoodsController {
      * @Param [id, model]
      * @return java.lang.String
      **/
-    @PutMapping("/admin/goods/update")
+    @RequestMapping("/admin/goods/update")
     public String updateGoods(SkGoodsEntity entity) {
         goodsService.updateGoods(entity);
         return REDIRECT_TO_ADMIN_GOODS;
@@ -106,7 +106,7 @@ public class GoodsController {
      * @Param [id, attributes]
      * @return java.lang.String
      **/
-    @DeleteMapping("/admin/goods/{id}/delete")
+    @RequestMapping("/admin/goods/{id}/delete")
     public String delete(@PathVariable Integer id, RedirectAttributes attributes) {
         goodsService.deleteGoods(id);
         attributes.addFlashAttribute("message", "删除成功");

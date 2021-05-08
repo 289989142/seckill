@@ -38,7 +38,7 @@
                 <!--添加图片-->
                 <form enctype="multipart/form-data" method="post" action="/uploadPicture">
                     <input id="uploadImg" type="file" name="img" style="display:none;"/>
-                    <img th:if="1 ne ${status}" id="toUploadImg" class="ui fluid image"  src = "https://image-hosting-lhy.oss-cn-beijing.aliyuncs.com/typora/image.png">
+                    <img th:if="1 ne ${status}" id="toUploadImg" class="ui fluid image"  src = "https://img-blog.csdnimg.cn/20210508230921262.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3MDc2OTQw,size_16,color_FFFFFF,t_70#pic_center">
                     <img id="imgShow" class="ui fluid image" th:src="@{${imgDirectory}}" style="z-index: 999">
                     <input class="ui button green" th:if="1 ne ${status}" type="submit" value="上传图片"/>
                 </form>

@@ -28,84 +28,74 @@
 </nav>
 <div class="m-container m-padded-tb-big">
     <div class="ui divider"></div>
-    <div class="ui  segment">
-        <div class="ui grid">
-            <div class="m-container m-padded-tb-big">
-                <div class="ui container">
-                    <div  class="ui secondary segment form">
-                        <input type="hidden" name="page" >
-                        <div class="inline fields">
-                            <div class="field">
-                                <input type="text" name="title" placeholder="商品" style="width: 250px">
-                            </div>
+        <div class="m-container m-padded-tb-big">
+            <div class="ui container">
+                <!--TODO订单普通搜索要不要加上-->
+<!--                <div  class="ui secondary segment form">-->
+<!--                    <input type="hidden" name="page" >-->
+<!--                    <div class="inline fields">-->
+<!--                        <div class="field">-->
+<!--                            <input type="text" name="title" placeholder="商品" style="width: 250px">-->
+<!--                        </div>-->
 
-                            <div class="field">
-                                <button type="button" id="search-btn" class="ui teal basic button"><i class="search icon"></i>搜索</button>
-                            </div>
+<!--                        <div class="field">-->
+<!--                            <button type="button" id="search-btn" class="ui teal basic button"><i class="search icon"></i>搜索</button>-->
+<!--                        </div>-->
 
-                        </div>
-                    </div>
-                    <div id="table-container">
-                        <table th:fragment="blogList" class="ui compact teal table">
-                            <thead>
-                            <tr>
-                                <th></th>
-                                <th>商品</th>
-                                <th>状态</th>
-                                <th>时间</th>
-                                <th>操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <!--TODO 实现订单list页 然后普通订单业务基本上就完成了-->
-                            <tr th:each="order,iterStat : ${pageInfo.records}">
-                                <td th:text="${iterStat.count}">1</td>
-                                <td th:text="${order.}">面包</td>
-                                <td th:text="${blog.getType().name}">待支付</td>
-                                <td th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm')}">2020-8-26</td>
-                                <td>
-                                    <!--    <a href="#" class="ui teal basic button">编辑</a>
-                                        <a href="#" class="ui red basic button">删除</a>   -->
-                                    <a href="#" th:href="@{/admin/blogs/{id}/input(id=${blog.id})}" class="ui mini teal basic button">支付</a>
-                                </td>
-                            </tr>
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <!--<th colspan="6">
-                                    <div class="ui pagination menu">
-                                        <a href="#" class="item">上一页</a>
-                                        <a href="#" class="item">下一页</a>
-                                    </div>
-                                    <a href="#" class="ui  right floated teal basic button">新增</a>
-                                </th>-->
-                                <th colspan="7">
-                                    <div class="ui inverted divided stackable grid">
+<!--                    </div>-->
+<!--                </div>-->
+                <div id="table-container">
+                    <table th:fragment="blogList" class="ui compact teal table">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>商品id</th>
+                            <th>订单状态</th>
+                            <th>订单价格</th>
+                            <th>创建时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--TODO 实现订单list页 然后普通订单业务基本上就完成了-->
+                        <tr th:each="order,iterStat : ${pageInfo.records}">
+                            <td th:text="${iterStat.count}">1</td>
+                            <td th:text="${order.goodsId}">面包</td>
+                            <td th:text="${order.status}">待支付</td>
+                            <td th:text="${order.price}">待支付</td>
+                            <td th:text="${#dates.format(order.createTime,'yyyy-MM-dd HH:mm')}">2020-8-26</td>
+                            <td>
+                                <!--    <a href="#" class="ui teal basic button">编辑</a>
+                                    <a href="#" class="ui red basic button">删除</a>   -->
+                                <a href="#" class="ui mini teal basic button">支付</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th colspan="7">
+                                <div class="ui inverted divided stackable grid">
+                                    <!--分页-->
+                                    <div class="ui bottom attached segment m-opacity stackable grid">
                                         <div class="three wide column" align="center">
-                                            <a class="item" th:href="@{/admin/blogs(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}" th:unless="${pageInfo.isFirstPage}">上一页</a>
+                                            <a class="ui teal basic button mini item " th:href="@{'/order/list?pageNum='+${pageInfo.current -1}}" th:if="${pageInfo.current>1}">上一页</a>
                                         </div>
 
                                         <div class="ten wide column" align="center">
-                                            <p>第 <span th:text="${pageInfo.pageNum}"></span> 页，共 <span th:text="${pageInfo.pages}"></span> 页，有 <span th:text="${pageInfo.total}"></span> 个订单</p>
+                                            <p> <span th:text="${pageInfo.current}"></span> / <span th:text="${pageInfo.pages}"></span> </p>
                                         </div>
 
                                         <div class="three wide column" align="center">
-                                            <a class="item" th:href="@{/admin/blogs(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}" th:unless="${pageInfo.isLastPage}">下一页</a>
+                                            <a class="ui teal basic button mini item" th:href="@{'?pageNum='+${pageInfo.current +1}}" th:if="${pageInfo.current<pageInfo.pages}">下一页</a>
                                         </div>
                                     </div>
-
-                                </th>
-                            </tr>
-                            </tfoot>
-                        </table>
-
-                    </div>
-
+                                </div>
+                            </th>
+                        </tr>
+                        </tfoot>
+                    </table>
                 </div>
-            </div>
-
         </div>
-
     </div>
 </div>
 

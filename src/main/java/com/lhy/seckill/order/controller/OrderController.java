@@ -1,5 +1,6 @@
 package com.lhy.seckill.order.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lhy.seckill.goods.service.GoodsService;
 import com.lhy.seckill.order.controller.param.OrderQueryParam;
@@ -76,7 +77,7 @@ public class OrderController {
         param.setPageNum(pageNum);
         param.setPageSize(pageSize);
 
-        Page<SkOrderEntity> page = orderService.getOrderByUserId(param);
+        IPage<SkOrderEntity> page = orderService.getOrderByUserId(param);
         model.addAttribute("pageInfo",page);
         return "orders";
     }
