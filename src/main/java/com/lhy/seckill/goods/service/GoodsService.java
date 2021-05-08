@@ -91,7 +91,7 @@ public class GoodsService {
     * @Param [id, num]
     * @return java.lang.Boolean
     **/
-    public Boolean reduceStock(Integer id,Integer num){
+    public boolean reduceStock(Integer id,Integer num){
         SkGoodsEntity skGoodsEntity = goodsMapper.selectById(id);
         Integer stock = skGoodsEntity.getStock();
         if (stock-num<0){

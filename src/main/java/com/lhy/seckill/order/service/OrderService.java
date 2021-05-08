@@ -39,16 +39,18 @@ public class OrderService{
     }
 
 
-    public SkOrderEntity createOrder(SkUserEntity user, SkGoodsEntity goods,Integer num) {
+    public SkOrderEntity createOrder(SkUserEntity user,Double price, Integer goodsId,Integer num,Integer isSeckill) {
         SkOrderEntity orderInfo = new SkOrderEntity();
         orderInfo.setCreateTime(new Date());
-        orderInfo.setGoodsCount(1);
-        orderInfo.setGoodsId(goods.getId());
+        orderInfo.setGoodsCount(num);
+        orderInfo.setGoodsId(goodsId);
         orderInfo.setStatus(0);
         orderInfo.setUserId(user.getId());
+        orderInfo.setIsSeckill(isSeckill);
+        orderInfo.setLastTime(new Date());
         orderMapper.insert(orderInfo);
-
-        redisService.set(OrderKey.getSeckillOrderByUidGid, "" + user.getId() + "_" + goods.getId(), orderInfo);
+        //多传一个price过来
+        redisService.set(OrderKey.getSeckillOrderByUidGid, "" + user.getId() + "_" + goodsId, orderInfo);
         return orderInfo;
     }
 

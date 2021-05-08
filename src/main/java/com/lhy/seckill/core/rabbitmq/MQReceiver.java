@@ -2,8 +2,11 @@ package com.lhy.seckill.core.rabbitmq;
 
 
 import com.lhy.seckill.core.redis.RedisService;
+import com.lhy.seckill.goods.entity.SkGoodsEntity;
 import com.lhy.seckill.goods.service.GoodsService;
+import com.lhy.seckill.order.entity.SkOrderEntity;
 import com.lhy.seckill.order.service.OrderService;
+import com.lhy.seckill.seckill.service.SeckillService;
 import com.lhy.seckill.user.entity.SkUserEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,32 +32,32 @@ public class MQReceiver {
 
     @Autowired
     OrderService orderService;
-//
-//    @Autowired
-//    SeckillService seckillService;
-//
-//    @RabbitListener(queues=MQConfig.QUEUE)
-//    public void receive(String message){
-//        log.info("receive message:"+message);
-//        SeckillMessage m = RedisService.stringToBean(message, SeckillMessage.class);
-//        SkUserEntity user = m.getUser();
-//        long goodsId = m.getGoodsId();
-//
-//        GoodsVo goodsVo = goodsService.getGoodsVoByGoodsId(goodsId);
-//        int stock = goodsVo.getStockCount();
-//        if(stock <= 0){
-//            return;
-//        }
-//
-//        //判断重复秒杀
-//        SeckillOrder order = orderService.getOrderByUserIdGoodsId(user.getId(), goodsId);
-//        if(order != null) {
-//            return;
-//        }
-//
-//        //减库存 下订单 写入秒杀订单
-//        seckillService.seckill(user, goodsVo);
-//    }
+
+    @Autowired
+    SeckillService seckillService;
+
+    @RabbitListener(queues=MQConfig.QUEUE)
+    public void receive(String message){
+        log.info("receive message:"+message);
+        SeckillMessage m = RedisService.stringToBean(message, SeckillMessage.class);
+        SkUserEntity user = m.getUser();
+        Integer goodsId = m.getGoodsId();
+
+        SkGoodsEntity goodsVo = goodsService.getGoods(goodsId);
+        int stock = goodsVo.getStock();
+        if(stock <= 0){
+            return;
+        }
+
+        //判断重复秒杀
+        SkOrderEntity order = orderService.getOrderByUserIdGoodsId(user.getId(), goodsId);
+        if(order != null) {
+            return;
+        }
+
+        //减库存 下订单 写入秒杀订单
+        seckillService.seckill(user, goodsId);
+    }
 
     @RabbitListener(queues = MQConfig.TOPIC_QUEUE1)
     public void receiveTopic1(String message) {

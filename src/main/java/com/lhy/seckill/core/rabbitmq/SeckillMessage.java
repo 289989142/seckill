@@ -2,30 +2,19 @@ package com.lhy.seckill.core.rabbitmq;
 
 
 import com.lhy.seckill.user.entity.SkUserEntity;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Created by jiangyunxiong on 2018/5/29.
  *
  * 消息体
  */
+@Getter
+@Setter
 public class SeckillMessage {
 
     private SkUserEntity user;
-    private long goodsId;
+    private Integer goodsId;
 
-    public SkUserEntity getUser() {
-        return user;
-    }
-
-    public void setUser(SkUserEntity user) {
-        this.user = user;
-    }
-
-    public long getGoodsId() {
-        return goodsId;
-    }
-
-    public void setGoodsId(long goodsId) {
-        this.goodsId = goodsId;
-    }
 }

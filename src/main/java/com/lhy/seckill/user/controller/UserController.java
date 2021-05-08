@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class UserController {
-    //        //获取用户信息
-//        UserDetailImpl principal = (UserDetailImpl)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
     //TODO 可能要在前台加一个个人中心
 

@@ -1,12 +1,11 @@
 package com.lhy.seckill.order.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.models.auth.In;
-import lombok.Data;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import org.springframework.format.annotation.DateTimeFormat;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -42,5 +41,11 @@ public class SkOrderEntity {
 
  /**商品数量*/
  private Integer goodsCount;
+
+ /**成交价格*/
+ private Double price;
+
+ /**是否为秒杀商品*/
+ private Integer isSeckill;
 
 }

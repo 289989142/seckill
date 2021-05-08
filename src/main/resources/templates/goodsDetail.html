@@ -29,7 +29,7 @@
     </div>
 </nav>
 <div class="m-container m-padded-tb-big">
-<!--    TODO  并完成立即购买 生成订单操作-->
+
 <!--先填写商品信息再上传图片-->
     <!--https://www.cnblogs.com/zhainan-blog/p/11169163.html-->
     <div class="ui divider"></div>
@@ -40,7 +40,7 @@
                 <img id="imgShow" class="ui fluid image" th:src="@{${goods.picture}}" style="z-index: 999">
             </div>
 
-            <form  th:object="${goods}">
+            <form  th:object="${goods}" th:action="@{/order/goods}" th:method="post">
                 <input type="hidden" name="picture" th:value="${goods.picture}">
                 <input type="hidden" name="id" th:value="${goods.id}">
                 <div class="nine wide column">
@@ -87,8 +87,6 @@
 
                 </div>
             </form>
-
-
     </div>
 </div>
 </div>
@@ -102,9 +100,6 @@
         $('#toUploadImg').click(function(){
             $('#uploadImg').click();
         });
-
-
-
     });
 
 
