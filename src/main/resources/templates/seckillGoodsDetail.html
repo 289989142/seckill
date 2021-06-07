@@ -40,7 +40,7 @@
                 <img id="imgShow" class="ui fluid image" th:src="@{${goods.picture}}" style="z-index: 999">
             </div>
 
-            <form  th:object="${goods}">
+            <form th:action="@{/order/goods}" th:object="${goods}">
                 <input type="hidden" name="picture" th:value="${goods.picture}">
                 <input type="hidden" name="id" th:value="${goods.id}">
                 <div class="nine wide column">
